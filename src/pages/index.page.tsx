@@ -1,12 +1,7 @@
 import { Suspense } from "react"
 import Layout from "src/core/layouts/Layout"
 import { BlitzPage } from "@blitzjs/next"
-import { UserInfo } from "../core/components/UserInfo"
-
-/*
- * This file is just for a pleasant getting started page for your new app.
- * You can delete everything in here and start from scratch if you like.
- */
+import { UserInfo } from "@/core/components/UserInfo"
 
 const Home: BlitzPage = () => {
   return (
