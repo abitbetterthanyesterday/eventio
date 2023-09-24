@@ -4,7 +4,7 @@ import { withBlitz } from "src/blitz-client"
 import "src/styles/globals.css"
 import "@mantine/core/styles.css"
 import { RootErrorFallback } from "@/core/components/RootErrorFallback"
-import { Button, MantineProvider, Popover } from "@mantine/core"
+import { MantineProvider } from "@mantine/core"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,7 +12,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <MantineProvider defaultColorScheme={"dark"}>
         <Suspense fallback="Loading...">
           <Component {...pageProps} />
-          <Button>Hello</Button>
         </Suspense>
       </MantineProvider>
     </ErrorBoundary>

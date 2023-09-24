@@ -1,6 +1,6 @@
 import Document, { Html, Main, NextScript, Head } from "next/document"
 
-import { Button, ColorSchemeScript } from "@mantine/core"
+import { ColorSchemeScript } from "@mantine/core"
 
 class MyDocument extends Document {
   render() {
