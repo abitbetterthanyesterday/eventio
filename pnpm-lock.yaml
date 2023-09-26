@@ -6,12 +6,14 @@ specifiers:
   "@blitzjs/rpc": 2.0.0-beta.33
   "@hookform/error-message": 2.0.1
   "@hookform/resolvers": 2.9.11
+  "@mantine/code-highlight": 7.0.2
   "@mantine/core": 7.0.0
   "@mantine/form": 7.0.0
   "@mantine/hooks": 7.0.0
   "@next/bundle-analyzer": 12.0.8
   "@next/env": 13.4.19
   "@prisma/client": 4.6.1
+  "@tabler/icons-react": 2.35.0
   "@testing-library/jest-dom": 5.16.5
   "@testing-library/react": 13.4.0
   "@testing-library/react-hooks": 8.0.1
@@ -51,10 +53,12 @@ dependencies:
   "@blitzjs/rpc": 2.0.0-beta.33_jk527ybys3atjvzof43bd4jzu4
   "@hookform/error-message": 2.0.1_b3fh43hz2v2etj6ngwrekrxcgi
   "@hookform/resolvers": 2.9.11_react-hook-form@7.46.1
+  "@mantine/code-highlight": 7.0.2_qudvti3gcaes2cgsbbni756ave
   "@mantine/core": 7.0.0_p6hgefl2j4zdvl7ygbjm4jescm
   "@mantine/form": 7.0.0_react@18.2.0
   "@mantine/hooks": 7.0.0_react@18.2.0
   "@prisma/client": 4.6.1_prisma@4.6.1
+  "@tabler/icons-react": 2.35.0_react@18.2.0
   blitz: 2.0.0-beta.33_t2onre2iphfojnae77env6h7am
   next: 13.4.5_biqbaboplfbrettd7655fr4n2y
   prisma: 4.6.1
@@ -2224,6 +2228,25 @@ packages:
       "@jridgewell/sourcemap-codec": 1.4.15
     dev: false
 
+  /@mantine/code-highlight/7.0.2_qudvti3gcaes2cgsbbni756ave:
+    resolution:
+      {
+        integrity: sha512-nwO3hF7YhyBAFWj+f3KTI9VlUbVb3u1kHfSTQpqR1id3tMLXjJ63MIEs7rJlYal1a2Dmzkyf8yZb4W4jYwRDrw==,
+      }
+    peerDependencies:
+      "@mantine/core": 7.0.2
+      "@mantine/hooks": 7.0.2
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      "@mantine/core": 7.0.0_p6hgefl2j4zdvl7ygbjm4jescm
+      "@mantine/hooks": 7.0.0_react@18.2.0
+      clsx: 2.0.0
+      highlight.js: 11.8.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@mantine/core/7.0.0_p6hgefl2j4zdvl7ygbjm4jescm:
     resolution:
       {
@@ -2766,6 +2789,26 @@ packages:
     engines: { node: ">=10" }
     dependencies:
       defer-to-connect: 2.0.1
+    dev: false
+
+  /@tabler/icons-react/2.35.0_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-jK2zgtMF2+LSjtbjYsfer+ryz72TwyJqv3MsmCfEpQwP37u01xvmTlVhJ+ox3bV+trsgjojsldVDuB05JuXLaw==,
+      }
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      "@tabler/icons": 2.35.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /@tabler/icons/2.35.0:
+    resolution:
+      {
+        integrity: sha512-qW/itKdmFvfGw6mAQ+cZy+2MYTXb0XdGAVhO3obYLJEfsSPMwQRO0S9ckFk1xMQX/Tj7REC3TEmWUBWNi3/o3g==,
+      }
     dev: false
 
   /@tanstack/query-core/4.24.4:
@@ -7579,6 +7622,14 @@ packages:
       }
     hasBin: true
     dev: true
+
+  /highlight.js/11.8.0:
+    resolution:
+      {
+        integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==,
+      }
+    engines: { node: ">=12.0.0" }
+    dev: false
 
   /hoist-non-react-statics/3.3.2:
     resolution:

@@ -1,10 +1,14 @@
 import Head from "next/head"
 import React, { FC, Suspense } from "react"
-import { BlitzLayout } from "@blitzjs/next"
-import { AppShell, Burger, Center, Flex } from "@mantine/core"
+import { BlitzLayout, Routes } from "@blitzjs/next"
+import { Anchor, AppShell, Burger, Center, Flex } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
+import Link from "next/link"
 
-type Props = { title?: string; children?: React.ReactNode }
+type Props = {
+  title?: string
+  children?: React.ReactNode
+}
 const Layout: BlitzLayout<Props> = ({ title, children }) => {
   const [opened, { toggle }] = useDisclosure()
 
@@ -18,12 +22,20 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
       <AppShell padding="md" header={{ height: 60 }}>
         <AppShell.Header p={16}>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size={"sm"} />
-          <Flex h={"100%"} align={"center"}>
-            Eventio
-          </Flex>
+          <Anchor
+            component={Link}
+            href={Routes.Home()}
+            underline={"never"}
+            c={"gray.3"}
+            fw={"bold"}
+          >
+            <Flex h={"100%"} align={"center"}>
+              Eventio
+            </Flex>
+          </Anchor>
         </AppShell.Header>
 
-        <AppShell.Main>
+        <AppShell.Main h={20}>
           <Suspense fallback="Loading...">{children}</Suspense>
         </AppShell.Main>
 
