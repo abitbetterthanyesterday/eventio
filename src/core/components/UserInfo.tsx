@@ -3,6 +3,7 @@ import logout from "@/features/auth/mutations/logout"
 import Link from "next/link"
 import { Routes } from "@blitzjs/next"
 import { useCurrentUser } from "@/features/users/hooks/useCurrentUser"
+import { Button, Group, Stack } from "@mantine/core"
 
 export const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -27,14 +28,14 @@ export const UserInfo = () => {
     )
   } else {
     return (
-      <>
-        <Link href={Routes.SignupPage()}>
-          <strong>Sign Up</strong>
-        </Link>
-        <Link href={Routes.LoginPage()}>
-          <strong>Login</strong>
-        </Link>
-      </>
+      <Group gap={4} justify={"center"}>
+        <Button component={Link} href={Routes.SignupPage()} color={"grape"}>
+          Sign Up
+        </Button>
+        <Button component={Link} href={Routes.LoginPage()}>
+          Login
+        </Button>
+      </Group>
     )
   }
 }
