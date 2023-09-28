@@ -1,8 +1,8 @@
 import { Suspense } from "react"
 import Layout from "src/core/layouts/Layout"
 import { BlitzPage } from "@blitzjs/next"
-import { UserInfo } from "@/core/components/UserInfo"
-import { MainAuthenticationForm } from "@/core/components/MainAuthenticationForm"
+import { UserInfo } from "@/users/components/UserInfo"
+import { MainAuthenticationForm } from "src/auth/components/MainAuthenticationForm"
 import { useCurrentUser } from "@/users/hooks/useCurrentUser"
 import { Center, Stack } from "@mantine/core"
 
