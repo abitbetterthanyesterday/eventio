@@ -15,10 +15,10 @@ import {
 } from "@mantine/core"
 import { TwitterButton, GoogleButton } from "./SocialButton"
 import { useMutation } from "@blitzjs/rpc"
-import login from "@/features/auth/mutations/login"
+import login from "@/auth/mutations/login"
 import { AuthenticationError } from "blitz"
 import { FORM_ERROR } from "@/core/components/Form"
-import signup from "@/features/auth/mutations/signup"
+import signup from "@/auth/mutations/signup"
 
 export const MainAuthenticationForm = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"])

@@ -3,7 +3,7 @@ import Layout from "src/core/layouts/Layout"
 import { BlitzPage } from "@blitzjs/next"
 import { UserInfo } from "@/core/components/UserInfo"
 import { MainAuthenticationForm } from "@/core/components/MainAuthenticationForm"
-import { useCurrentUser } from "@/features/users/hooks/useCurrentUser"
+import { useCurrentUser } from "@/users/hooks/useCurrentUser"
 import { Center, Stack } from "@mantine/core"
 
 const Home: BlitzPage = () => {

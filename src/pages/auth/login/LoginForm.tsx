@@ -2,7 +2,7 @@ import { AuthenticationError, PromiseReturnType } from "blitz"
 import { useForm } from "@mantine/form"
 import { Button, PasswordInput, Stack, TextInput } from "@mantine/core"
 import { FORM_ERROR } from "@/core/components/Form"
-import login from "@/features/auth/mutations/login"
+import login from "@/auth/mutations/login"
 import { useMutation } from "@blitzjs/rpc"
 
 type LoginFormProps = {

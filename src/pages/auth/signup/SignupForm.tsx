@@ -1,5 +1,5 @@
-import form, { FORM_ERROR } from "@/core/components/Form"
-import signup from "@/features/auth/mutations/signup"
+import { FORM_ERROR } from "@/core/components/Form"
+import signup from "@/auth/mutations/signup"
 import { useMutation } from "@blitzjs/rpc"
 import { Button, PasswordInput, Stack, TextInput } from "@mantine/core"
 import { useForm } from "@mantine/form"

@@ -1,7 +1,7 @@
 import { FORM_ERROR } from "@/core/components/Form"
 
 import Layout from "src/core/layouts/Layout"
-import forgotPassword from "@/features/auth/mutations/forgotPassword"
+import forgotPassword from "@/auth/mutations/forgotPassword"
 import { useMutation } from "@blitzjs/rpc"
 import { BlitzPage } from "@blitzjs/next"
 import { Button, TextInput } from "@mantine/core"

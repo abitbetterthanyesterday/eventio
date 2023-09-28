@@ -1,9 +1,12 @@
 import Head from "next/head"
-import React, { FC, Suspense } from "react"
+import React, { Suspense } from "react"
 import { BlitzLayout, Routes } from "@blitzjs/next"
-import { Anchor, AppShell, Burger, Center, Flex } from "@mantine/core"
+import { Anchor, AppShell, Burger, Button, Center, Flex } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import Link from "next/link"
+import { useMutation } from "@blitzjs/rpc"
+import logout from "@/auth/mutations/logout"
+import { useCurrentUser } from "@/users/hooks/useCurrentUser"
 
 type Props = {
   title?: string
@@ -11,6 +14,8 @@ type Props = {
 }
 const Layout: BlitzLayout<Props> = ({ title, children }) => {
   const [opened, { toggle }] = useDisclosure()
+  const [logoutMutation] = useMutation(logout)
+  const user = useCurrentUser()
 
   return (
     <>
@@ -22,17 +27,28 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
       <AppShell padding="md" header={{ height: 60 }}>
         <AppShell.Header p={16}>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size={"sm"} />
-          <Anchor
-            component={Link}
-            href={Routes.Home()}
-            underline={"never"}
-            c={"gray.3"}
-            fw={"bold"}
-          >
-            <Flex h={"100%"} align={"center"}>
-              Eventio
-            </Flex>
-          </Anchor>
+          <Flex h={"full"} align={"center"} justify={"space-between"}>
+            <Anchor
+              component={Link}
+              href={Routes.Home()}
+              underline={"never"}
+              c={"gray.3"}
+              fw={"bold"}
+            >
+              Paramarket
+            </Anchor>
+            {user && (
+              <Button
+                size={"sm"}
+                variant={"light"}
+                onClick={async () => {
+                  await logoutMutation()
+                }}
+              >
+                Logout
+              </Button>
+            )}
+          </Flex>
         </AppShell.Header>
 
         <AppShell.Main h={20}>
