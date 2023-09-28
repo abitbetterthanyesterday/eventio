@@ -40,13 +40,15 @@ model Glider {
   year        DateTime
   classId     Int
   class       GliderClass @relation(fields: [classId], references: [id])
-  size        String
-  hours       Int
-  description String
+  size        String?
+  minWeight   Int?
+  maxWeight   Int?
+  hours       Int?
+  description String?
   sellerId    Int
   seller      User        @relation(fields: [sellerId], references: [id])
   Media       Media[]
-  price       String
+  price       Int
   modelId     Int
   model       GliderModel @relation(fields: [modelId], references: [id])
 }
