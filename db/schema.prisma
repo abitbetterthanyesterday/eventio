@@ -12,6 +12,56 @@ generator client {
 
 // --------------------------------------
 
+model GliderBrand {
+  id          Int           @id @default(autoincrement())
+  name        String
+  gliderModel GliderModel[]
+}
+
+model GliderModel {
+  id            Int         @id @default(autoincrement())
+  name          String
+  brand         GliderBrand @relation(fields: [gliderBrandId], references: [id])
+  brandId       Int
+  glider        Glider[]
+  gliderBrandId Int
+}
+
+model GliderClass {
+  id     Int      @id @default(autoincrement())
+  name   String
+  glider Glider[]
+}
+
+model Glider {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  year        DateTime
+  classId     Int
+  class       GliderClass @relation(fields: [classId], references: [id])
+  size        String
+  hours       Int
+  description String
+  sellerId    Int
+  seller      User        @relation(fields: [sellerId], references: [id])
+  Media       Media[]
+  price       String
+  modelId     Int
+  model       GliderModel @relation(fields: [modelId], references: [id])
+}
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  url       String
+  type      String
+  glider    Glider   @relation(fields: [gliderId], references: [id])
+  gliderId  Int
+}
+
 model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
@@ -23,6 +73,7 @@ model User {
 
   tokens   Token[]
   sessions Session[]
+  Glider   Glider[]
 }
 
 model Session {
