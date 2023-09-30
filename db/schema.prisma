@@ -19,12 +19,11 @@ model GliderBrand {
 }
 
 model GliderModel {
-  id            Int         @id @default(autoincrement())
-  name          String
-  brand         GliderBrand @relation(fields: [gliderBrandId], references: [id])
-  brandId       Int
-  glider        Glider[]
-  gliderBrandId Int
+  id      Int         @id @default(autoincrement())
+  name    String
+  brand   GliderBrand @relation(fields: [brandId], references: [id])
+  brandId Int
+  glider  Glider[]
 }
 
 model GliderClass {
