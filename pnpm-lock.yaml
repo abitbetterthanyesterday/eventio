@@ -7,9 +7,9 @@ specifiers:
   "@hookform/error-message": 2.0.1
   "@hookform/resolvers": 2.9.11
   "@mantine/code-highlight": 7.0.2
-  "@mantine/core": 7.0.0
-  "@mantine/form": 7.0.0
-  "@mantine/hooks": 7.0.0
+  "@mantine/core": 7.0.2
+  "@mantine/form": 7.0.2
+  "@mantine/hooks": 7.0.2
   "@mantine/notifications": 7.0.2
   "@next/bundle-analyzer": 12.0.8
   "@next/env": 13.4.19
@@ -54,11 +54,11 @@ dependencies:
   "@blitzjs/rpc": 2.0.0-beta.33_jk527ybys3atjvzof43bd4jzu4
   "@hookform/error-message": 2.0.1_b3fh43hz2v2etj6ngwrekrxcgi
   "@hookform/resolvers": 2.9.11_react-hook-form@7.46.1
-  "@mantine/code-highlight": 7.0.2_qudvti3gcaes2cgsbbni756ave
-  "@mantine/core": 7.0.0_p6hgefl2j4zdvl7ygbjm4jescm
-  "@mantine/form": 7.0.0_react@18.2.0
-  "@mantine/hooks": 7.0.0_react@18.2.0
-  "@mantine/notifications": 7.0.2_qudvti3gcaes2cgsbbni756ave
+  "@mantine/code-highlight": 7.0.2_xkyqysnz34jy5prvphd2vjt2pe
+  "@mantine/core": 7.0.2_r5pqvfmyskiudzanz5drbjcro4
+  "@mantine/form": 7.0.2_react@18.2.0
+  "@mantine/hooks": 7.0.2_react@18.2.0
+  "@mantine/notifications": 7.0.2_xkyqysnz34jy5prvphd2vjt2pe
   "@prisma/client": 4.6.1_prisma@4.6.1
   "@tabler/icons-react": 2.35.0_react@18.2.0
   blitz: 2.0.0-beta.33_t2onre2iphfojnae77env6h7am
@@ -2230,7 +2230,7 @@ packages:
       "@jridgewell/sourcemap-codec": 1.4.15
     dev: false
 
-  /@mantine/code-highlight/7.0.2_qudvti3gcaes2cgsbbni756ave:
+  /@mantine/code-highlight/7.0.2_xkyqysnz34jy5prvphd2vjt2pe:
     resolution:
       {
         integrity: sha512-nwO3hF7YhyBAFWj+f3KTI9VlUbVb3u1kHfSTQpqR1id3tMLXjJ63MIEs7rJlYal1a2Dmzkyf8yZb4W4jYwRDrw==,
@@ -2241,26 +2241,26 @@ packages:
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
-      "@mantine/core": 7.0.0_p6hgefl2j4zdvl7ygbjm4jescm
-      "@mantine/hooks": 7.0.0_react@18.2.0
+      "@mantine/core": 7.0.2_r5pqvfmyskiudzanz5drbjcro4
+      "@mantine/hooks": 7.0.2_react@18.2.0
       clsx: 2.0.0
       highlight.js: 11.8.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@mantine/core/7.0.0_p6hgefl2j4zdvl7ygbjm4jescm:
+  /@mantine/core/7.0.2_r5pqvfmyskiudzanz5drbjcro4:
     resolution:
       {
-        integrity: sha512-0F+AdATM6uzZyKD3YNR95EY4taYVpdnKIaEmjSNRqYnfHCK/4TcbG+srDDBXrXclyJpGg9I1TF1D5M1ePoBoNA==,
+        integrity: sha512-aJodq48NE4FAgpzimPtT0Izr/dqhXkBwCDOYxgTTe+LpNwTzEJqBfZeysB2B3Aobr7MaEWPvvyUi3Uu9qL5y0g==,
       }
     peerDependencies:
-      "@mantine/hooks": 7.0.0
+      "@mantine/hooks": 7.0.2
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
       "@floating-ui/react": 0.24.8_biqbaboplfbrettd7655fr4n2y
-      "@mantine/hooks": 7.0.0_react@18.2.0
+      "@mantine/hooks": 7.0.2_react@18.2.0
       clsx: 2.0.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -2272,10 +2272,10 @@ packages:
       - "@types/react"
     dev: false
 
-  /@mantine/form/7.0.0_react@18.2.0:
+  /@mantine/form/7.0.2_react@18.2.0:
     resolution:
       {
-        integrity: sha512-gFyk622WztFQM8Nh3t/gIjpdokd3hjxxFSgFxQb08Xa7y+1MbQ/D6QVuuGt0S9eCxUokTfBCdoyPtNRyHb3O9A==,
+        integrity: sha512-LvH/sXaInqA9qnf8zYTEIR58RxGd/RE7AtILeBlioduQdUUcaAHkbohCWc5q6jhvf5Uoq+zS1qv/4Fcp1eoEHQ==,
       }
     peerDependencies:
       react: ^18.2.0
@@ -2285,10 +2285,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@mantine/hooks/7.0.0_react@18.2.0:
+  /@mantine/hooks/7.0.2_react@18.2.0:
     resolution:
       {
-        integrity: sha512-HdZ6qE15OKNA3esbO72+mRqztMcdGphL/wl/ks8N7iAlSUu7sFtgZN+IU6MfJxGc/MEN3x5dEceWG6FgwOmHOw==,
+        integrity: sha512-Zs0h7O9yI4Lhcebp/eXN+jfFSBS4jNuKRN5msj54decKcnA9ZxjkUpUqAwCNU0Re+cx6RFSBmB8eOA/+5sw+nA==,
       }
     peerDependencies:
       react: ^18.2.0
@@ -2296,7 +2296,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@mantine/notifications/7.0.2_qudvti3gcaes2cgsbbni756ave:
+  /@mantine/notifications/7.0.2_xkyqysnz34jy5prvphd2vjt2pe:
     resolution:
       {
         integrity: sha512-cTRO/uF3PgW4hUEQkQ57bl4r/+BnA4HN52NXF6auMWxIIhrS5x2t98ra215rqMTNAfedeAEMGARMwBtlGj6MqQ==,
@@ -2307,8 +2307,8 @@ packages:
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
-      "@mantine/core": 7.0.0_p6hgefl2j4zdvl7ygbjm4jescm
-      "@mantine/hooks": 7.0.0_react@18.2.0
+      "@mantine/core": 7.0.2_r5pqvfmyskiudzanz5drbjcro4
+      "@mantine/hooks": 7.0.2_react@18.2.0
       "@mantine/store": 7.0.2_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
