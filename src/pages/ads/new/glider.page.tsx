@@ -1,13 +1,9 @@
 import React from "react"
 import {
   Autocomplete,
-  Box,
   Button,
-  Center,
   Checkbox,
   Container,
-  Flex,
-  Group,
   NumberInput,
   Paper,
   RangeSlider,
@@ -15,21 +11,23 @@ import {
   Stack,
   Text,
   Textarea,
-  TextInput,
 } from "@mantine/core"
 import { BlitzPage } from "@blitzjs/next"
 import Layout from "@/core/layouts/Layout"
-import { Form, useForm } from "@mantine/form"
-import { useMutation } from "@blitzjs/rpc"
+import { useForm } from "@mantine/form"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import createGlider from "@/gliders/mutations/createGlider"
 import { CreateGliderSchema } from "@/gliders/mutations/createGlider"
 import { z } from "zod"
 import { notifications } from "@mantine/notifications"
 import { IconCheck } from "@tabler/icons-react"
 import { CurrencyInput } from "@/core/components/CurrencyInput"
-import { useWatch } from "react-hook-form"
+import getBrands from "@/gliders/queries/getBrands"
+import getModels from "@/gliders/queries/getModels"
 
-type Values = z.infer<typeof CreateGliderSchema>
+type Values = Omit<z.infer<typeof CreateGliderSchema>, "brand"> & {
+  brandName: string
+}
 const NewGliderPage: BlitzPage = () => {
   const form = useForm<Values>({
     initialValues: {
@@ -39,11 +37,29 @@ const NewGliderPage: BlitzPage = () => {
       price: 0,
       minWeight: 60,
       maxWeight: 90,
-      brand: "",
+      brandName: "",
       model: "",
       hours: 50,
     },
+    transformValues: (values) => ({
+      ...values,
+      brand: brands.find(({ name }) => name === values.brandName)?.id,
+    }),
   })
+  const [brands] = useQuery(getBrands, undefined)
+  const brandId = Number(getBrandIdFromName(form.values["brandName"]))
+  const shouldGetModels = !isNaN(brandId)
+  const [models] = useQuery(
+    getModels,
+    { brandId },
+    {
+      enabled: shouldGetModels,
+    }
+  )
+
+  function getBrandIdFromName(name: string) {
+    return Number(brands.find(({ name: brandName }) => brandName === name)?.id)
+  }
 
   const [$createGlider] = useMutation(createGlider)
 
@@ -88,22 +104,15 @@ const NewGliderPage: BlitzPage = () => {
               }
               label={"Brand"}
               placeholder={"Advance, Skywalk..."}
-              data={["Advance", "Skywalk"]}
-              {...form.getInputProps("brand")}
-              onChange={(e) => {
-                const hasChanged = form.values["brand"] !== e
-                form.getInputProps("model").onChange(e)
-                if (!hasChanged) {
-                  form.setValues({ ...form.values, model: "" })
-                }
-              }}
+              data={brands.map(({ name }) => name)}
+              {...form.getInputProps("brandName")}
             />
 
             <Autocomplete
               description={"The model of your glider"}
               label={"Model"}
+              data={models?.map(({ name }) => name) ?? []}
               placeholder={"Advance, Skywalk..."}
-              data={["Advance", "Skywalk"]}
               disabled={form.values["brand"]?.length === 0}
               {...form.getInputProps("model")}
             />
