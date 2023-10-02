@@ -1,7 +1,7 @@
 import Head from "next/head"
 import React, { Suspense } from "react"
 import { BlitzLayout, Routes } from "@blitzjs/next"
-import { Anchor, AppShell, Burger, Button, Center, Flex } from "@mantine/core"
+import { Anchor, AppShell, Burger, Button, ButtonGroup, Center, Flex, Group } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import Link from "next/link"
 import { useMutation } from "@blitzjs/rpc"
@@ -38,15 +38,20 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
               Paramarket
             </Anchor>
             {user && (
-              <Button
-                size={"sm"}
-                variant={"light"}
-                onClick={async () => {
-                  await logoutMutation()
-                }}
-              >
-                Logout
-              </Button>
+              <Group gap={20}>
+                <Button component={Link} href={Routes.NewGliderPage()} color={"orange"}>
+                  Sell
+                </Button>
+                <Button
+                  size={"sm"}
+                  variant={"light"}
+                  onClick={async () => {
+                    await logoutMutation()
+                  }}
+                >
+                  Logout
+                </Button>
+              </Group>
             )}
           </Flex>
         </AppShell.Header>
