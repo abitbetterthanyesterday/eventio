@@ -10904,7 +10904,7 @@ packages:
         integrity: sha512-X/xY82scca2tau62i9mDyU9K+I+djTMUsvwf7xnUX5GLvVzgJybOJf4Y6o9Zx3oJK/LSXg5tTZBjwzqVPaPO2g==,
       }
     engines: { node: ">=0.4.x" }
-    deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
+    deprecated: The querystring API is considered Legacy. gliders code should use the URLSearchParams API instead.
     dev: false
 
   /querystringify/2.2.0:

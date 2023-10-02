@@ -20,7 +20,7 @@ export default resolver.pipe(resolver.zod(ForgotPassword), async ({ email }) => 
   if (user) {
     // 4. Delete any existing password reset tokens
     await db.token.deleteMany({ where: { type: "RESET_PASSWORD", userId: user.id } })
-    // 5. Save this new token in the database.
+    // 5. Save this gliders token in the database.
     await db.token.create({
       data: {
         user: { connect: { id: user.id } },

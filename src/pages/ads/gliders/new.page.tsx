@@ -16,34 +16,37 @@ import { BlitzPage } from "@blitzjs/next"
 import Layout from "@/core/layouts/Layout"
 import { useForm } from "@mantine/form"
 import { useMutation, useQuery } from "@blitzjs/rpc"
-import createGlider from "@/gliders/mutations/createGlider"
-import { CreateGliderSchema } from "@/gliders/mutations/createGlider"
+import createGlider, { CreateGliderSchema } from "@/gliders/mutations/createGlider"
 import { z } from "zod"
 import { notifications } from "@mantine/notifications"
-import { IconCheck } from "@tabler/icons-react"
+import { IconCheck, IconCross } from "@tabler/icons-react"
 import { CurrencyInput } from "@/core/components/CurrencyInput"
 import getBrands from "@/gliders/queries/getBrands"
 import getModels from "@/gliders/queries/getModels"
+import { GliderClass } from "@/gliders/schema"
+import { useCurrentUser } from "@/users/hooks/useCurrentUser"
 
-type Values = Omit<z.infer<typeof CreateGliderSchema>, "brand"> & {
-  brandName: string
+type Values = z.infer<typeof CreateGliderSchema> & {
+  modelName: string
 }
 const NewGliderPage: BlitzPage = () => {
+  const user = useCurrentUser()
   const form = useForm<Values>({
     initialValues: {
-      // TODO: Add the remaing of the fields and connect to the form
       year: new Date().getFullYear(),
       description: "",
       price: 0,
       minWeight: 60,
       maxWeight: 90,
-      brandName: "",
-      model: "",
+      model: 0,
+      modelName: "",
       hours: 50,
+      class: GliderClass.A,
+      seller: user?.id ?? -1,
     },
     transformValues: (values) => ({
       ...values,
-      brand: brands.find(({ name }) => name === values.brandName)?.id,
+      model: models?.find(({ name }) => name === values.modelName)?.id ?? 0,
     }),
   })
   const [brands] = useQuery(getBrands, undefined)
@@ -63,14 +66,23 @@ const NewGliderPage: BlitzPage = () => {
 
   const [$createGlider] = useMutation(createGlider)
 
-  async function handleSubmit(values) {
-    // await $createGlider(values)
-    notifications.show({
-      title: "Glider created",
-      message: "Your glider has been created",
-      color: "green",
-      icon: <IconCheck />,
-    })
+  async function handleSubmit(values: Values) {
+    try {
+      await $createGlider(values)
+      notifications.show({
+        title: "Glider created",
+        message: "Your glider has been created",
+        color: "green",
+        icon: <IconCheck />,
+      })
+    } catch {
+      notifications.show({
+        title: "Error",
+        message: "An error occured",
+        color: "red",
+        icon: <IconCross />,
+      })
+    }
   }
 
   const marks = [
@@ -82,8 +94,6 @@ const NewGliderPage: BlitzPage = () => {
     { value: 140, label: "140" },
   ]
 
-  //TODO Connect to the backend
-  //TODO make responsive on mobile
   return (
     <Layout title={"New glider"}>
       <Container size={"sm"} h={"100%"}>
@@ -113,8 +123,8 @@ const NewGliderPage: BlitzPage = () => {
               label={"Model"}
               data={models?.map(({ name }) => name) ?? []}
               placeholder={"Advance, Skywalk..."}
-              disabled={form.values["brand"]?.length === 0}
-              {...form.getInputProps("model")}
+              disabled={!shouldGetModels}
+              {...form.getInputProps("modelName")}
             />
 
             <Stack gap={2}>
@@ -126,7 +136,7 @@ const NewGliderPage: BlitzPage = () => {
 
             <Stack gap={2}>
               <Text size={"sm"}>Certification</Text>
-              <SegmentedControl data={["A", "B", "B+", "C", "D", "Competition", "Open"]} />
+              <SegmentedControl data={Object.values(GliderClass)} />
             </Stack>
 
             <Stack gap={2}>

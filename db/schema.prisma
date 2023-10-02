@@ -26,20 +26,13 @@ model GliderModel {
   glider  Glider[]
 }
 
-model GliderClass {
-  id     Int      @id @default(autoincrement())
-  name   String
-  glider Glider[]
-}
-
 model Glider {
   id          Int         @id @default(autoincrement())
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   year        DateTime
-  classId     Int
-  class       GliderClass @relation(fields: [classId], references: [id])
   size        String?
+  class       String
   minWeight   Int?
   maxWeight   Int?
   hours       Int?

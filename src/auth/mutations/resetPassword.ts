@@ -42,7 +42,7 @@ export default resolver.pipe(resolver.zod(ResetPassword), async ({ password, tok
   // 6. Revoke all existing login sessions for this user
   await db.session.deleteMany({ where: { userId: user.id } })
 
-  // 7. Now log the user in with the new credentials
+  // 7. Now log the user in with the gliders credentials
   await login({ email: user.email, password }, ctx)
 
   return true
