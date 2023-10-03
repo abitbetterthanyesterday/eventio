@@ -1,7 +1,7 @@
 import { resolver } from "@blitzjs/rpc"
 import { z } from "zod"
 import db from "../../../db"
-import { GliderClass } from "@/gliders/schema"
+import { GliderClassEnum } from "@/gliders/schema"
 
 export const CreateGliderSchema = z.object({
   year: z.number().min(1979).max(2050),
@@ -12,7 +12,7 @@ export const CreateGliderSchema = z.object({
   description: z.string().optional(),
   price: z.number(),
   model: z.number(),
-  class: z.nativeEnum(GliderClass),
+  class: GliderClassEnum,
   seller: z.number(),
 })
 export default resolver.pipe(
@@ -22,7 +22,7 @@ export default resolver.pipe(
     return db.glider.create({
       data: {
         ...data,
-        class: GliderClass[data.class],
+        class: data.class,
         year: new Date(data.year, 0, 1, 0, 0, 0, 0),
         model: {
           connect: { id: data.model },

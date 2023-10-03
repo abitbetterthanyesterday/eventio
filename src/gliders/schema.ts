@@ -1,9 +1,3 @@
-export enum GliderClass {
-  A = "A",
-  B = "B",
-  B_PLUS = "B+",
-  C = "C",
-  D = "D",
-  CCC = "COMPETITIO",
-  OPEN = "OPEN",
-}
+import { z } from "zod"
+
+export const GliderClassEnum = z.enum(["A", "B", "B+", "C", "D", "COMPETITION", "OPEN"])
