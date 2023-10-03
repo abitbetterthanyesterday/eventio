@@ -5,6 +5,7 @@
     "dev": "blitz dev",
     "build": "blitz build",
     "start": "blitz start",
+    "cypress:open": "cypress open",
     "migrate": "blitz prisma migrate dev --preview-feature",
     "studio": "blitz prisma studio",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
@@ -72,7 +73,8 @@
     "preview-email": "3.0.7",
     "typescript": "^4.8.4",
     "vite-tsconfig-paths": "3.6.0",
-    "vitest": "0.25.3"
+    "vitest": "0.25.3",
+    "cypress": "13.3.0"
   },
   "private": true
 }
