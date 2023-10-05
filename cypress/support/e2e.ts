@@ -15,6 +15,30 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands"
+import { z } from "zod"
+import { email, Login, password } from "../../src/auth/schemas"
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+const login = ({ email, password }: z.infer<typeof Login>) => {
+  return cy.request("POST", `/api/rpc/login`, {
+    params: {
+      email,
+      password,
+    },
+  })
+}
+
+const loginAsUser = () => {
+  cy.fixture("users.json").then((users) => {
+    login({
+      email: users.email,
+      password: users.password,
+    })
+  })
+}
+
+// @ts-ignore
+Cypress.Commands.add("login", login)
+Cypress.Commands.add("loginAsUser", loginAsUser)
