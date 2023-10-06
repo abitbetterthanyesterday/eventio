@@ -29,6 +29,11 @@ const formData: FormFieldData[] = [
 ]
 
 describe("Gliders", () => {
+  beforeEach(() => {
+    cy.exec("blitz prisma migrate reset -f -e test")
+    cy.exec("blitz db seed -e test")
+  })
+
   it("should be able to create a new glider ad", () => {
     cy.loginAsUser()
     cy.visit("/")
