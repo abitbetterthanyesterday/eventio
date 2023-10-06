@@ -4,6 +4,6 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "node", "@testing-library/cypress", "cypress-real-events"]
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.cy.ts"],
   "exclude": ["node_modules"]
 }

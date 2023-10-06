@@ -1,4 +1,4 @@
-import { NativeSelect, rem, TextInput } from "@mantine/core"
+import { NativeSelect, NumberInput, rem, TextInput } from "@mantine/core"
 import { Form } from "@mantine/form"
 
 const data = [
@@ -26,5 +26,5 @@ export function CurrencyInput(props) {
     />
   )
 
-  return <TextInput {...props} rightSection={select} rightSectionWidth={92} />
+  return <NumberInput {...props} rightSection={select} rightSectionWidth={92} />
 }

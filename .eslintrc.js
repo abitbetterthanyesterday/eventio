@@ -8,4 +8,6 @@ let configuration = {
   },
 }
 
+console.log(configuration)
+
 module.exports = configuration

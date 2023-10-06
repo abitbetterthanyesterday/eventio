@@ -23,7 +23,7 @@ export default resolver.pipe(
       data: {
         ...data,
         class: data.class,
-        year: new Date(data.year, 0, 1, 0, 0, 0, 0),
+        year: new Date(data.year, 1, 1),
         model: {
           connect: { id: data.model },
         },
