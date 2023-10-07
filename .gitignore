@@ -60,3 +60,6 @@ lib-cov
 
 # Webstorm
 .idea
+
+# Sentry Auth Token
+.sentryclirc
