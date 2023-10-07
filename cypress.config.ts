@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 dotenv.config({ path: ".env.test" })
 
 export default defineConfig({
-  projectId: "iargio",
+  projectId: "ieu1f8",
   e2e: {
     baseUrl: "http://localhost:3001",
     setupNodeEvents(on, config) {

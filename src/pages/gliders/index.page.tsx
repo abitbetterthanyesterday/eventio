@@ -10,7 +10,7 @@ const GlidersIndexPage: BlitzPage = () => {
     <Layout title={"glideras"}>
       <h1>Gliders</h1>
       {gliders.map((glider) => (
-        <div>
+        <div key={glider.id}>
           <pre>{JSON.stringify(glider, null, 2)}</pre>
         </div>
       ))}

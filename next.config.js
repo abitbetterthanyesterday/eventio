@@ -1,19 +1,15 @@
-// @ts-check
 const { withBlitz } = require("@blitzjs/next")
+const { withSentryConfig } = require("@sentry/nextjs")
 
 /**
- * @type {import('@blitzjs/next').BlitzConfig}
+ * @type {import("@blitzjs/next").BlitzConfig}
  **/
 const config = {
   pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
 }
-
 module.exports = withBlitz(config)
 
 // Injected content via Sentry wizard below
-
-const { withSentryConfig } = require("@sentry/nextjs")
-
 module.exports = withSentryConfig(
   module.exports,
   {
@@ -23,7 +19,7 @@ module.exports = withSentryConfig(
     // Suppresses source map uploading logs during build
     silent: true,
     org: "aloys-berger",
-    project: "javascript-nextjs",
+    project: "zefo",
   },
   {
     // For all available options, see:
