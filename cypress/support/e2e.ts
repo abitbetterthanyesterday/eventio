@@ -31,11 +31,9 @@ const login = ({ email, password }: z.infer<typeof Login>) => {
 }
 
 const loginAsUser = () => {
-  cy.fixture("users.json").then((users) => {
-    login({
-      email: users.email,
-      password: users.password,
-    })
+  login({
+    email: Cypress.env("loginEmail"),
+    password: Cypress.env("loginPassword"),
   })
 }
 

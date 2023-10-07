@@ -67,9 +67,8 @@ describe("Gliders", () => {
 
     // Submit the form
     cy.findByRole("form").within((_) => {
-      cy.findByRole("button", { name: /submit/i })
-        .scrollIntoView()
-        .click()
+      cy.findByRole("button", { name: /submit/i }).scrollIntoView()
+      cy.findByRole("button", { name: /submit/i }).click()
     })
 
     // Redirect to the gliders page
