@@ -16,7 +16,7 @@ jobs:
       - name: ⎔ Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8.3.1
+          version: 7.32.4
       - name: Cypress run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v6
