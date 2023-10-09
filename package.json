@@ -7,6 +7,7 @@
     "start": "blitz start",
     "cypress:dev": "blitz dev --port 3001 -e test",
     "cypress:open": "npm run cypress:dev & cypress open",
+    "cypress:run": "npm run cypress:dev & cypress run",
     "db:migrate": "blitz prisma migrate dev --preview-feature",
     "db:reset": "blitz prisma migrate reset",
     "db:seed": "blitz db seed --preview-feature",
