@@ -61,7 +61,7 @@ const NewGliderPage: BlitzPage = () => {
     { brandId },
     {
       enabled: shouldGetModels,
-    }
+    },
   )
 
   function getBrandIdFromName(name: string) {
