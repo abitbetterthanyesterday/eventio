@@ -37,8 +37,9 @@ describe("Gliders", () => {
   it("should be able to create a new glider ad", () => {
     cy.loginAsUser()
     cy.visit("/")
-    // cy select link with text "Sell" in
+
     cy.findAllByRole("link", { name: /sell/i }).first().click()
+    cy.waitForNetworkIdle(2000)
     cy.url().should("include", "/new")
 
     // Fill the form
@@ -70,6 +71,7 @@ describe("Gliders", () => {
     })
 
     // Redirect to the gliders page
+    cy.waitForNetworkIdle(2000)
     cy.url().should("include", "/gliders")
 
     // Check that the glider is in the list

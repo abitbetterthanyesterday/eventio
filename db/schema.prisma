@@ -33,6 +33,7 @@ model Glider {
   year        DateTime
   size        String?
   class       String
+  type        String
   minWeight   Int?
   maxWeight   Int?
   hours       Int?

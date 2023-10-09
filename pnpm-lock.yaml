@@ -26,6 +26,7 @@ specifiers:
   "@vitejs/plugin-react": 2.2.0
   blitz: 2.0.0-beta.33
   cypress: 13.3.0
+  cypress-network-idle: 1.14.2
   cypress-real-events: 1.10.3
   dotenv: 16.3.1
   eslint: 8.27.0
@@ -88,6 +89,7 @@ devDependencies:
   "@typescript-eslint/eslint-plugin": 5.42.1_qaufaj7tqs2aha52ol5f74v4z4
   "@vitejs/plugin-react": 2.2.0
   cypress: 13.3.0
+  cypress-network-idle: 1.14.2
   cypress-real-events: 1.10.3_cypress@13.3.0
   eslint: 8.27.0
   eslint-config-next: 12.3.1_qaufaj7tqs2aha52ol5f74v4z4
@@ -5547,6 +5549,13 @@ packages:
       {
         integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==,
       }
+
+  /cypress-network-idle/1.14.2:
+    resolution:
+      {
+        integrity: sha512-xAdR8dH58KFPv8eCDWjviScITrJOcUpuMXYfYTc175nk2/NvnJ+I6ylSn1CM7yZmoV/gLbFa36QLiH5NfNEaLQ==,
+      }
+    dev: true
 
   /cypress-real-events/1.10.3_cypress@13.3.0:
     resolution:
