@@ -42,9 +42,6 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
             </Anchor>
             {user && (
               <Group gap={20}>
-                <Button component={Link} href={Routes.NewGliderPage()} color={"orange"}>
-                  Sell
-                </Button>
                 <Button
                   size={"sm"}
                   variant={"light"}
