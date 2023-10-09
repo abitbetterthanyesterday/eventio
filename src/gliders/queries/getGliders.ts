@@ -7,5 +7,5 @@ const GetGliders = z.object({
 })
 
 export default resolver.pipe(resolver.zod(GetGliders), resolver.authorize(), async (input) => {
-  return await db.glider.findMany()
+  return await db.glider.findMany({ include: { model: { include: { brand: true } } } })
 })

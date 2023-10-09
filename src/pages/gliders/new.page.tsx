@@ -23,7 +23,7 @@ import { IconCheck, IconCross } from "@tabler/icons-react"
 import { CurrencyInput } from "@/core/components/CurrencyInput"
 import getBrands from "@/gliders/queries/getBrands"
 import getModels from "@/gliders/queries/getModels"
-import { GliderClassEnum } from "@/gliders/schema"
+import { GliderClassEnum, GliderTypeEnum } from "@/gliders/schema"
 import { useCurrentUser } from "@/users/hooks/useCurrentUser"
 import { useRouter } from "next/router"
 
@@ -41,6 +41,7 @@ export const initialValues: Omit<Values, "seller"> = {
   modelName: "",
   hours: 50,
   class: GliderClassEnum.Enum.A,
+  type: GliderTypeEnum.Enum["Cross country"],
 }
 
 const NewGliderPage: BlitzPage = () => {
@@ -136,7 +137,8 @@ const NewGliderPage: BlitzPage = () => {
               <Text size={"sm"}>Type</Text>
               <SegmentedControl
                 aria-label={"Type"}
-                data={["Cross country", "Acro", "Tandem", "Mini", "Speed", "Other"]}
+                data={Object.values(GliderTypeEnum.Enum)}
+                {...form.getInputProps("type")}
               />
             </Stack>
 
@@ -145,6 +147,7 @@ const NewGliderPage: BlitzPage = () => {
               <SegmentedControl
                 aria-label={"Certification"}
                 data={Object.values(GliderClassEnum.Enum)}
+                {...form.getInputProps("class")}
               />
             </Stack>
 
