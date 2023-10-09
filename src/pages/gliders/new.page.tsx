@@ -135,7 +135,11 @@ const NewGliderPage: BlitzPage = () => {
 
             <Stack gap={2}>
               <Text size={"sm"}>Type</Text>
-              <SegmentedControl aria-label={"Type"} data={Object.values(GliderTypeEnum.Enum)} />
+              <SegmentedControl
+                aria-label={"Type"}
+                data={Object.values(GliderTypeEnum.Enum)}
+                {...form.getInputProps("type")}
+              />
             </Stack>
 
             <Stack gap={2}>
@@ -143,6 +147,7 @@ const NewGliderPage: BlitzPage = () => {
               <SegmentedControl
                 aria-label={"Certification"}
                 data={Object.values(GliderClassEnum.Enum)}
+                {...form.getInputProps("class")}
               />
             </Stack>
 
