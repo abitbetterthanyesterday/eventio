@@ -13,7 +13,7 @@ const seed = async () => {
   const { ADMIN_EMAIL, ADMIN_PASSWORD } = process.env
   if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
     console.error(
-      `Missing ADMIN_EMAIL or ADMIN_PASSWORD environment variable ${process.env.NODE_ENV}`
+      `Missing ADMIN_EMAIL or ADMIN_PASSWORD environment variable ${process.env.NODE_ENV}`,
     )
     process.exit(1)
   }
