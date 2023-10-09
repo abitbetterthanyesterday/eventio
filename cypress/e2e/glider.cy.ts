@@ -38,9 +38,7 @@ describe("Gliders", () => {
     cy.loginAsUser()
     cy.visit("/")
     // cy select link with text "Sell" in
-    cy.findAllByRole("link", { name: /sell/i }).then((links) => {
-      links[0].click()
-    })
+    cy.findAllByRole("link", { name: /sell/i }).first().click()
     cy.url().should("include", "/new")
 
     // Fill the form
