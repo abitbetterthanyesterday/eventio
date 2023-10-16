@@ -16,10 +16,17 @@
 // Import commands.js using ES2015 syntax:
 import "./commands"
 import { z } from "zod"
-import { email, Login, password } from "../../src/auth/schemas"
+import { Login } from "../../src/auth/schemas"
+import { RedirectError } from "blitz"
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+Cypress.on("uncaught:exception", (err, runnable) => {
+  /* Ignore RedirectError */
+  if (err.name === RedirectError.name) {
+    return false
+  }
+})
 
 const login = ({ email, password }: z.infer<typeof Login>) => {
   return cy.request("POST", `/api/rpc/login`, {
