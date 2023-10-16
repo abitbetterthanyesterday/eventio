@@ -24,7 +24,8 @@ import signup from "@/auth/mutations/signup"
 
 import { IconInfoCircle } from "@tabler/icons-react"
 import { useState } from "react"
-import { values } from "@chevrotain/utils"
+import { z } from "zod"
+import { Login } from "@/auth/schemas"
 
 export const MainAuthenticationForm = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"])
@@ -45,7 +46,7 @@ export const MainAuthenticationForm = (props: PaperProps) => {
     },
   })
 
-  async function onLogin(values) {
+  async function onLogin(values: z.infer<typeof Login>) {
     try {
       await $loginMutation(values)
     } catch (error: any) {
@@ -56,7 +57,7 @@ export const MainAuthenticationForm = (props: PaperProps) => {
     }
   }
 
-  const onSignup = async (values) => {
+  const onSignup = async (values: z.infer<typeof Login>) => {
     try {
       await signupMutation(values)
     } catch (error: any) {
@@ -69,7 +70,7 @@ export const MainAuthenticationForm = (props: PaperProps) => {
     }
   }
 
-  async function onSubmit(values) {
+  async function onSubmit(values: z.infer<typeof Login>) {
     if (type === "login") {
       await onLogin(values)
     } else {
