@@ -4,6 +4,7 @@ import { renderHook as defaultRenderHook } from "@testing-library/react-hooks"
 import { NextRouter } from "next/router"
 import { BlitzProvider, RouterContext } from "@blitzjs/next"
 import { QueryClient } from "@blitzjs/rpc"
+import { MantineProvider } from "@mantine/core"
 
 export * from "@testing-library/react"
 
@@ -29,6 +30,7 @@ export * from "@testing-library/react"
 // --------------------------------------------------
 
 const queryClient = new QueryClient()
+
 export function render(
   ui: RenderUI,
   { wrapper, router, dehydratedState, ...options }: RenderOptions = {}
@@ -37,9 +39,11 @@ export function render(
     // Add a default context wrapper if one isn't supplied from the test
     wrapper = ({ children }: { children: React.ReactNode }) => (
       <BlitzProvider dehydratedState={dehydratedState} client={queryClient}>
-        <RouterContext.Provider value={{ ...mockRouter, ...router }}>
-          {children}
-        </RouterContext.Provider>
+        <MantineProvider>
+          <RouterContext.Provider value={{ ...mockRouter, ...router }}>
+            {children}
+          </RouterContext.Provider>
+        </MantineProvider>
       </BlitzProvider>
     )
   }
