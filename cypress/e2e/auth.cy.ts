@@ -2,11 +2,11 @@ describe("Login", () => {
   beforeEach(() => {
     cy.exec("blitz prisma migrate reset -f -e test")
     cy.exec("blitz db seed -e test")
+    cy.visit("/")
+    cy.location("pathname", { timeout: 20000 }).should("include", "/login")
   })
 
   it("should show an error message when my credentials are wrong", () => {
-    cy.visit("/")
-    cy.waitForNetworkIdle(2000)
     cy.findByRole("form", { name: /login/i }).should("exist")
 
     cy.findByRole("textbox", { name: /email/i }).type("albert@einstein.de", { force: true })
@@ -20,7 +20,6 @@ describe("Login", () => {
   it("should show an alert when the server is down", () => {
     cy.intercept("post", "api/rpc/login", { forceNetworkError: true }).as("loginNetworkFailure")
 
-    cy.visit("/")
     cy.findByRole("form", { name: /login/i }).should("exist")
 
     cy.findByRole("textbox", { name: /email/i }).type("albert@einstein.de", { force: true })
@@ -39,7 +38,6 @@ describe("Login", () => {
       // failing the test
       return false
     })
-    cy.visit("/")
     cy.findByRole("form", { name: /login/i }).should("exist")
 
     cy.findByRole("textbox", { name: /email/i }).type(Cypress.env("loginEmail"))
