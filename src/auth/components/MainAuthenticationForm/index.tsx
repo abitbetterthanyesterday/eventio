@@ -14,6 +14,10 @@ import {
   Stack,
   PaperProps,
   Alert,
+  Container,
+  Center,
+  Flex,
+  Tooltip,
 } from "@mantine/core"
 import { TwitterButton, GoogleButton } from "./SocialButton"
 import { useMutation } from "@blitzjs/rpc"
@@ -79,89 +83,102 @@ export const MainAuthenticationForm = (props: PaperProps) => {
   }
 
   return (
-    <Paper radius="md" p="xl" withBorder {...props}>
-      <Text size="lg" fw={500}>
-        Welcome to Eventio, {type} with
-      </Text>
+    <Container pt={"10vh"} size={"xs"}>
+      <Paper radius="md" p="xl" withBorder {...props}>
+        <Text size="lg" fw={500}>
+          Welcome to Paramarket, {type} with
+        </Text>
 
-      <Group grow mb="md" mt="md">
-        <GoogleButton radius="xl">Google</GoogleButton>
-        <TwitterButton radius="xl">Twitter</TwitterButton>
-      </Group>
+        <Tooltip label={"Coming soon"}>
+          <Stack py={12}>
+            <GoogleButton radius="xl" disabled opacity={0.5} />
+          </Stack>
+        </Tooltip>
 
-      <Divider label="Or continue with email" labelPosition="center" my="lg" />
+        <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-      <form onSubmit={form.onSubmit((data) => void onSubmit(data))} name={"login"} title={"login"}>
-        <Stack align={"stretch"}>
-          {error && (
-            <Alert variant="light" color="red" radius="lg" title="Error" icon={<IconInfoCircle />}>
-              {error instanceof AuthenticationError && (
-                <Text>
-                  The password and email do not match. Please try again or
-                  <Anchor
-                    component={"button"}
-                    c={"red.5"}
-                    onClick={() => alert("Not implement yet")}
-                  >
-                    reset your password
-                  </Anchor>
-                </Text>
-              )}
-              {!(error instanceof AuthenticationError) && (
-                <Text>
-                  An unexpected error has happened. The team has been notified. Please try again.
-                  {error.message}
-                </Text>
-              )}
-            </Alert>
-          )}
+        <form
+          onSubmit={form.onSubmit((data) => void onSubmit(data))}
+          name={"login"}
+          title={"login"}
+        >
+          <Stack align={"stretch"}>
+            {error && (
+              <Alert
+                variant="light"
+                color="red"
+                radius="lg"
+                title="Error"
+                icon={<IconInfoCircle />}
+              >
+                {error instanceof AuthenticationError && (
+                  <Text>
+                    The password and email do not match. Please try again or
+                    <Anchor
+                      component={"button"}
+                      c={"red.5"}
+                      onClick={() => alert("Not implement yet")}
+                    >
+                      reset your password
+                    </Anchor>
+                  </Text>
+                )}
+                {!(error instanceof AuthenticationError) && (
+                  <Text>
+                    An unexpected error has happened. The team has been notified. Please try again.
+                    {error.message}
+                  </Text>
+                )}
+              </Alert>
+            )}
 
-          {type === "register" && (
+            {type === "register" && (
+              <TextInput
+                label="Name"
+                placeholder="Your name"
+                {...form.getInputProps("name")}
+                radius="md"
+              />
+            )}
+
             <TextInput
-              label="Name"
-              placeholder="Your name"
-              {...form.getInputProps("name")}
+              required
+              label="Email"
+              placeholder="hello@mantine.dev"
+              {...form.getInputProps("email")}
               radius="md"
             />
-          )}
 
-          <TextInput
-            required
-            label="Email"
-            placeholder="hello@mantine.dev"
-            {...form.getInputProps("email")}
-            radius="md"
-          />
-
-          <PasswordInput
-            required
-            label="Password"
-            placeholder="Your password"
-            radius="md"
-            role={"password"}
-            {...form.getInputProps("password")}
-          />
-
-          {type === "register" && (
-            <Checkbox
-              label="I accept terms and conditions"
-              checked={form.values.terms}
-              onChange={(event) => form.setFieldValue("terms", event.currentTarget.checked)}
+            <PasswordInput
+              required
+              label="Password"
+              placeholder="Your password"
+              radius="md"
+              role={"password"}
+              {...form.getInputProps("password")}
             />
-          )}
-        </Stack>
 
-        <Group justify="space-between" mt="xl">
-          <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
-            {type === "register"
-              ? "Already have an account? Login"
-              : "Don't have an account? Register"}
-          </Anchor>
-          <Button type="submit" radius="xl">
-            {upperFirst(type)}
-          </Button>
-        </Group>
-      </form>
-    </Paper>
+            {type === "register" && (
+              <Checkbox
+                label="I accept terms and conditions"
+                checked={form.values.terms}
+                onChange={(event) => form.setFieldValue("terms", event.currentTarget.checked)}
+              />
+            )}
+          </Stack>
+
+          <Group justify="space-between" mt="xl">
+            <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
+              {type === "register"
+                ? "Already have an account? Login"
+                : "Don't have an account? Register"}
+            </Anchor>
+            <Button type="submit" radius="xl">
+              {upperFirst(type)}
+            </Button>
+          </Group>
+        </form>
+      </Paper>
+    </Container>
   )
 }
