@@ -1,5 +1,5 @@
 import { useToggle, upperFirst } from "@mantine/hooks"
-import { useForm } from "@mantine/form"
+import { useForm, zodResolver } from "@mantine/form"
 import * as Sentry from "@sentry/nextjs"
 import {
   TextInput,
@@ -15,27 +15,25 @@ import {
   PaperProps,
   Alert,
   Container,
-  Center,
-  Flex,
   Tooltip,
 } from "@mantine/core"
-import { TwitterButton, GoogleButton } from "./SocialButton"
+import { GoogleButton } from "./SocialButton"
 import { useMutation } from "@blitzjs/rpc"
 import login from "@/auth/mutations/login"
 import { AuthenticationError } from "blitz"
-import { FORM_ERROR } from "@/core/components/Form"
 import signup from "@/auth/mutations/signup"
 
 import { IconInfoCircle } from "@tabler/icons-react"
 import { useState } from "react"
 import { z } from "zod"
-import { Login } from "@/auth/schemas"
+import { Login, Signup } from "@/auth/schemas"
 
+type Values = z.infer<typeof Signup>
 export const MainAuthenticationForm = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"])
   const [error, setError] = useState<Error | null>(null)
   const [$loginMutation] = useMutation(login)
-  const [signupMutation] = useMutation(signup)
+  const [$signupMutation] = useMutation(signup)
 
   const form = useForm({
     initialValues: {
@@ -44,13 +42,10 @@ export const MainAuthenticationForm = (props: PaperProps) => {
       password: "",
       terms: true,
     },
-    validate: {
-      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
-      password: (val) => (val.length <= 6 ? "Password should include at least 6 characters" : null),
-    },
+    validate: zodResolver(Signup),
   })
 
-  async function onLogin(values: z.infer<typeof Login>) {
+  async function onLogin(values: Values) {
     try {
       await $loginMutation(values)
     } catch (error: any) {
@@ -61,20 +56,18 @@ export const MainAuthenticationForm = (props: PaperProps) => {
     }
   }
 
-  const onSignup = async (values: z.infer<typeof Login>) => {
+  const onSignup = async (values: Values) => {
     try {
-      await signupMutation(values)
+      await $signupMutation(values)
     } catch (error: any) {
       if (error.code === "P2002" && error.meta?.target?.includes("email")) {
         // This error comes from Prisma
-        return { email: "This email is already being used" }
-      } else {
-        return { [FORM_ERROR]: error.toString() }
+        form.setErrors({ email: "This email is already being used" })
       }
     }
   }
 
-  async function onSubmit(values: z.infer<typeof Login>) {
+  async function onSubmit(values: Values) {
     if (type === "login") {
       await onLogin(values)
     } else {
@@ -98,7 +91,7 @@ export const MainAuthenticationForm = (props: PaperProps) => {
         <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
         <form
-          onSubmit={form.onSubmit((data) => void onSubmit(data))}
+          onSubmit={form.onSubmit((data: Values) => void onSubmit(data))}
           name={"login"}
           title={"login"}
         >
