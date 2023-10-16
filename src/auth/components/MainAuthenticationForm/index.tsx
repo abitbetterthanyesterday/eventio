@@ -1,5 +1,6 @@
 import { useToggle, upperFirst } from "@mantine/hooks"
 import { useForm } from "@mantine/form"
+import * as Sentry from "@sentry/nextjs"
 import {
   TextInput,
   PasswordInput,
@@ -12,6 +13,7 @@ import {
   Anchor,
   Stack,
   PaperProps,
+  Alert,
 } from "@mantine/core"
 import { TwitterButton, GoogleButton } from "./SocialButton"
 import { useMutation } from "@blitzjs/rpc"
@@ -20,9 +22,14 @@ import { AuthenticationError } from "blitz"
 import { FORM_ERROR } from "@/core/components/Form"
 import signup from "@/auth/mutations/signup"
 
+import { IconInfoCircle } from "@tabler/icons-react"
+import { useState } from "react"
+import { values } from "@chevrotain/utils"
+
 export const MainAuthenticationForm = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"])
-  const [loginMutation] = useMutation(login)
+  const [error, setError] = useState<Error | null>(null)
+  const [$loginMutation] = useMutation(login)
   const [signupMutation] = useMutation(signup)
 
   const form = useForm({
@@ -32,7 +39,6 @@ export const MainAuthenticationForm = (props: PaperProps) => {
       password: "",
       terms: true,
     },
-
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
       password: (val) => (val.length <= 6 ? "Password should include at least 6 characters" : null),
@@ -41,15 +47,11 @@ export const MainAuthenticationForm = (props: PaperProps) => {
 
   async function onLogin(values) {
     try {
-      const user = await loginMutation(values)
+      await $loginMutation(values)
     } catch (error: any) {
-      if (error instanceof AuthenticationError) {
-        return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
-      } else {
-        return {
-          [FORM_ERROR]:
-            "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
-        }
+      setError(error)
+      if (!(error instanceof AuthenticationError)) {
+        Sentry.captureException(error)
       }
     }
   }
@@ -88,8 +90,31 @@ export const MainAuthenticationForm = (props: PaperProps) => {
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-      <form onSubmit={form.onSubmit(onSubmit)}>
+      <form onSubmit={form.onSubmit((data) => void onSubmit(data))} name={"login"} title={"login"}>
         <Stack align={"stretch"}>
+          {error && (
+            <Alert variant="light" color="red" radius="lg" title="Error" icon={<IconInfoCircle />}>
+              {error instanceof AuthenticationError && (
+                <Text>
+                  The password and email do not match. Please try again or
+                  <Anchor
+                    component={"button"}
+                    c={"red.5"}
+                    onClick={() => alert("Not implement yet")}
+                  >
+                    reset your password
+                  </Anchor>
+                </Text>
+              )}
+              {!(error instanceof AuthenticationError) && (
+                <Text>
+                  An unexpected error has happened. The team has been notified. Please try again.
+                  {error.message}
+                </Text>
+              )}
+            </Alert>
+          )}
+
           {type === "register" && (
             <TextInput
               label="Name"
@@ -111,10 +136,9 @@ export const MainAuthenticationForm = (props: PaperProps) => {
             required
             label="Password"
             placeholder="Your password"
-            value={form.values.password}
-            onChange={(event) => form.setFieldValue("password", event.currentTarget.value)}
-            error={form.errors.password && "Password should include at least 6 characters"}
             radius="md"
+            role={"password"}
+            {...form.getInputProps("password")}
           />
 
           {type === "register" && (
