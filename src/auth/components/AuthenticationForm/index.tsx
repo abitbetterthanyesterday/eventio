@@ -1,20 +1,19 @@
-import { useToggle, upperFirst } from "@mantine/hooks"
+import { upperFirst, useToggle } from "@mantine/hooks"
 import { useForm, zodResolver } from "@mantine/form"
 import * as Sentry from "@sentry/nextjs"
 import {
-  TextInput,
-  PasswordInput,
-  Text,
-  Paper,
-  Group,
-  Button,
-  Divider,
-  Checkbox,
   Anchor,
-  Stack,
-  PaperProps,
-  Alert,
+  Button,
+  Checkbox,
   Container,
+  Divider,
+  Group,
+  Paper,
+  PaperProps,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
   Tooltip,
 } from "@mantine/core"
 import { GoogleButton } from "./SocialButton"
@@ -22,13 +21,18 @@ import { useMutation } from "@blitzjs/rpc"
 import login from "@/auth/mutations/login"
 import { AuthenticationError } from "blitz"
 import signup from "@/auth/mutations/signup"
-
-import { IconInfoCircle } from "@tabler/icons-react"
 import { useState } from "react"
 import { z } from "zod"
-import { Login, Signup } from "@/auth/schemas"
+import { Signup } from "@/auth/schemas"
+import { AuthenticationErrorAlert } from "@/auth/components/AuthenticationForm/AuthenticationErrorAlert"
 
 type Values = z.infer<typeof Signup>
+export const initialValues = {
+  email: "",
+  name: "",
+  password: "",
+  terms: true,
+}
 export const MainAuthenticationForm = (props: PaperProps) => {
   const [type, toggle] = useToggle(["login", "register"])
   const [error, setError] = useState<Error | null>(null)
@@ -36,12 +40,7 @@ export const MainAuthenticationForm = (props: PaperProps) => {
   const [$signupMutation] = useMutation(signup)
 
   const form = useForm({
-    initialValues: {
-      email: "",
-      name: "",
-      password: "",
-      terms: true,
-    },
+    initialValues: initialValues,
     validate: zodResolver(Signup),
   })
 
@@ -97,32 +96,7 @@ export const MainAuthenticationForm = (props: PaperProps) => {
         >
           <Stack align={"stretch"}>
             {error && (
-              <Alert
-                variant="light"
-                color="red"
-                radius="lg"
-                title="Error"
-                icon={<IconInfoCircle />}
-              >
-                {error instanceof AuthenticationError && (
-                  <Text>
-                    The password and email do not match. Please try again or
-                    <Anchor
-                      component={"button"}
-                      c={"red.5"}
-                      onClick={() => alert("Not implement yet")}
-                    >
-                      reset your password
-                    </Anchor>
-                  </Text>
-                )}
-                {!(error instanceof AuthenticationError) && (
-                  <Text>
-                    An unexpected error has happened. The team has been notified. Please try again.
-                    {error.message}
-                  </Text>
-                )}
-              </Alert>
+              <AuthenticationErrorAlert error={error} onClick={() => alert("Not implement yet")} />
             )}
 
             {type === "register" && (
