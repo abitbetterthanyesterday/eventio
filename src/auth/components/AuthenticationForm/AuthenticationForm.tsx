@@ -1,6 +1,4 @@
-import { upperFirst, useToggle } from "@mantine/hooks"
-import { useForm, zodResolver } from "@mantine/form"
-import * as Sentry from "@sentry/nextjs"
+import { upperFirst } from "@mantine/hooks"
 import {
   Anchor,
   Button,
@@ -17,62 +15,14 @@ import {
   Tooltip,
 } from "@mantine/core"
 import { GoogleButton } from "./SocialButton"
-import { useMutation } from "@blitzjs/rpc"
-import login from "@/auth/mutations/login"
-import { AuthenticationError } from "blitz"
-import signup from "@/auth/mutations/signup"
-import { useState } from "react"
-import { z } from "zod"
-import { Signup } from "@/auth/schemas"
 import { AuthenticationErrorAlert } from "@/auth/components/AuthenticationForm/AuthenticationErrorAlert"
+import {
+  useAuthenticationForm,
+  Values,
+} from "@/auth/components/AuthenticationForm/useAuthenticationForm"
 
-type Values = z.infer<typeof Signup>
-export const initialValues = {
-  email: "",
-  name: "",
-  password: "",
-  terms: true,
-}
-export const MainAuthenticationForm = (props: PaperProps) => {
-  const [type, toggle] = useToggle(["login", "register"])
-  const [error, setError] = useState<Error | null>(null)
-  const [$loginMutation] = useMutation(login)
-  const [$signupMutation] = useMutation(signup)
-
-  const form = useForm({
-    initialValues: initialValues,
-    validate: zodResolver(Signup),
-  })
-
-  async function onLogin(values: Values) {
-    try {
-      await $loginMutation(values)
-    } catch (error: any) {
-      setError(error)
-      if (!(error instanceof AuthenticationError)) {
-        Sentry.captureException(error)
-      }
-    }
-  }
-
-  const onSignup = async (values: Values) => {
-    try {
-      await $signupMutation(values)
-    } catch (error: any) {
-      if (error.code === "P2002" && error.meta?.target?.includes("email")) {
-        // This error comes from Prisma
-        form.setErrors({ email: "This email is already being used" })
-      }
-    }
-  }
-
-  async function onSubmit(values: Values) {
-    if (type === "login") {
-      await onLogin(values)
-    } else {
-      await onSignup(values)
-    }
-  }
+export const AuthenticationForm = (props: PaperProps) => {
+  const { error, type, toggleType, form, onSubmit } = useAuthenticationForm()
 
   return (
     <Container pt={"10vh"} size={"xs"}>
@@ -135,7 +85,13 @@ export const MainAuthenticationForm = (props: PaperProps) => {
           </Stack>
 
           <Group justify="space-between" mt="xl">
-            <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
+            <Anchor
+              component="button"
+              type="button"
+              c="dimmed"
+              onClick={() => toggleType()}
+              size="xs"
+            >
               {type === "register"
                 ? "Already have an account? Login"
                 : "Don't have an account? Register"}

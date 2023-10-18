@@ -10,6 +10,7 @@ export default resolver.pipe(resolver.zod(Signup), async ({ email, password }, c
     data: { email: email.toLowerCase().trim(), hashedPassword, role: "USER" },
     select: { id: true, name: true, email: true, role: true },
   })
+  console.log(user)
 
   await ctx.session.$create({ userId: user.id, role: user.role as Role })
   return user

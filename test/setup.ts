@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom"
-import { vi } from "vitest"
+import { server } from "./mocks/server.js"
+import { vi, beforeAll, beforeEach, afterAll, afterEach } from "vitest"
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -14,4 +15,20 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: vi.fn(),
   })),
 })
-export {}
+
+beforeAll(async () => {
+  await server.listen()
+})
+
+beforeEach(async () => {})
+
+// Reset any request handlers that we may add during the tests,
+// so they don't affect other tests.
+afterEach(() => {
+  server.resetHandlers()
+})
+
+// Clean up after the tests are finished.
+afterAll(() => {
+  server.close()
+})

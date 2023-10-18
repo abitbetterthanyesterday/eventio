@@ -1,6 +1,6 @@
-import { Alert, Anchor, Text } from "@mantine/core/lib"
 import { IconInfoCircle } from "@tabler/icons-react"
 import { AuthenticationError } from "blitz"
+import { Alert, Anchor, Text } from "@mantine/core"
 
 type AuthenticationErrorAlertProps = { error: Error; onClick: () => void }
 export const AuthenticationErrorAlert = (props: AuthenticationErrorAlertProps) => {
@@ -9,6 +9,7 @@ export const AuthenticationErrorAlert = (props: AuthenticationErrorAlertProps) =
       {props.error instanceof AuthenticationError && (
         <Text>
           The password and email do not match. Please try again or
+          {/* eslint-disable-next-line react/jsx-no-undef */}
           <Anchor component={"button"} c={"red.5"} onClick={props.onClick}>
             reset your password
           </Anchor>

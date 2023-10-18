@@ -20,6 +20,7 @@ specifiers:
   "@testing-library/jest-dom": 5.16.5
   "@testing-library/react": 13.4.0
   "@testing-library/react-hooks": 8.0.1
+  "@testing-library/user-event": 14.5.1
   "@types/preview-email": 2.0.1
   "@types/react": 18.0.25
   "@typescript-eslint/eslint-plugin": 5.42.1
@@ -67,6 +68,7 @@ dependencies:
   "@prisma/client": 4.6.1_prisma@4.6.1
   "@sentry/nextjs": 7.73.0_next@13.4.5+react@18.2.0
   "@tabler/icons-react": 2.35.0_react@18.2.0
+  "@testing-library/user-event": 14.5.1
   blitz: 2.0.0-beta.33_kau45z2qttjjcasytgh6mshoz4
   dotenv: 16.3.1
   next: 13.4.5_biqbaboplfbrettd7655fr4n2y
@@ -3279,6 +3281,16 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: true
+
+  /@testing-library/user-event/14.5.1:
+    resolution:
+      {
+        integrity: sha512-UCcUKrUYGj7ClomOo2SpNVvx4/fkd/2BbIHDCle8A0ax+P3bU7yJwDBDrS6ZwdTMARWTGODX1hEsCcO+7beJjg==,
+      }
+    engines: { node: ">=12", npm: ">=6" }
+    peerDependencies:
+      "@testing-library/dom": ">=7.21.4"
+    dev: false
 
   /@tootallnate/once/2.0.0:
     resolution:
