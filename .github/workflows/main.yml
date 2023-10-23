@@ -16,7 +16,7 @@ jobs:
         with:
           version: 7.32.4
       - name: "Unit test w/ coverage"
-        run: npm test:coverage
+        run: npm run test:coverage
       - name: Cypress run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v6
