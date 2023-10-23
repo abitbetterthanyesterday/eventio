@@ -42,6 +42,7 @@ pids
 *.lcov
 .nyc_output
 lib-cov
+coverage
 
 # Caches
 *.tsbuildinfo
