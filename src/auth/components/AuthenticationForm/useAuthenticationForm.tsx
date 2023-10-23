@@ -8,6 +8,7 @@ import { Signup, signUpErrors } from "@/auth/schemas"
 import { AuthenticationError } from "blitz"
 import * as Sentry from "@sentry/nextjs"
 import { z } from "zod"
+import { notifications } from "@mantine/notifications"
 
 export type Values = z.infer<typeof Signup>
 export const initialValues = {
@@ -17,19 +18,28 @@ export const initialValues = {
   terms: true,
 }
 
-export function useAuthenticationForm() {
+export type UseAuthenticationForm = {
+  error: Error | null
+  type: "login" | "register"
+  toggleType: () => void
+  form: ReturnType<typeof useForm<Values>>
+  onSubmit: (values: Values) => Promise<void>
+}
+
+export function useAuthenticationForm(): UseAuthenticationForm {
   const [error, setError] = useState<Error | null>(null)
   const [type, toggleType] = useToggle(["login", "register"] as const)
   const [$loginMutation] = useMutation(login)
   const [$signupMutation] = useMutation(signup)
-  const form = useForm({
+  const form = useForm<Values>({
     initialValues: initialValues,
     validate: zodResolver(Signup),
   })
 
   async function onLogin(values: Values) {
     try {
-      const res = await $loginMutation(values)
+      const user = await $loginMutation(values)
+      notifications.show({ title: "Login success", message: `Welcome back ${user.name}!` })
     } catch (error: any) {
       setError(error)
       if (!(error instanceof AuthenticationError)) {
