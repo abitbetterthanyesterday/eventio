@@ -25,6 +25,8 @@ export const password = z
 export const Signup = z.object({
   email,
   password,
+  name: z.string(),
+  terms: z.boolean(),
 })
 
 export const Login = z.object({
