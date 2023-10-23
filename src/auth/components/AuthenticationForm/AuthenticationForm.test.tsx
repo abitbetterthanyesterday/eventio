@@ -1,31 +1,19 @@
-import { act, screen } from "@testing-library/react"
-import { afterEach, vi } from "vitest"
+import { act, waitFor, screen, waitForElementToBeRemoved } from "@testing-library/react"
+import { afterEach, Mocked, vi } from "vitest"
 import { render } from "../../../../test/utils"
 import { AuthenticationForm } from "./AuthenticationForm"
 import { userEvent } from "@testing-library/user-event"
 import { initialValues } from "./useAuthenticationForm"
 import { emailErrors, passwordErrors } from "../../schemas"
+import db from "../../../../db"
+import { SecurePassword } from "@blitzjs/auth/secure-password"
 
-const onSubmitSpy = vi.fn()
-vi.mock("./useAuthenticationForm", async () => {
-  const actual = await vi.importActual<typeof import("./useAuthenticationForm")>(
-    "./useAuthenticationForm"
-  )
-  return {
-    ...actual,
-    useAuthenticationForm: () => ({
-      ...actual.useAuthenticationForm(),
-      onSubmit: onSubmitSpy,
-    }),
-  }
-})
 describe("AuthenticationForm", () => {
-  afterEach(() => {
-    onSubmitSpy.mockReset()
+  afterEach(async () => {
+    await db.$reset()
   })
-  // Renders the form with default values and no errors
   describe("Login", () => {
-    it("should render the form with default values and no errors", () => {
+    it("should render the form with default values and no errors", async () => {
       render(<AuthenticationForm />)
       // Assert that the form is rendered with the default values
       expect(screen.getByRole("textbox", { name: /email/i })).toHaveValue(initialValues.email)
@@ -36,26 +24,31 @@ describe("AuthenticationForm", () => {
       expect(screen.queryByRole("alert")).toBeNull()
     })
 
-    // Submits the form with valid data and no errors
-    it("should submit the form with valid data and no errors", async () => {
+    it("should let the user login", async () => {
       const user = userEvent.setup()
       const testValues = {
         email: "twanda_ogleqldt@cities.jtk",
         password: "4KbQYB6ZQQjdc83t4deLBxJ",
       }
+      const hashedPassword = await SecurePassword.hash(testValues.password.trim())
+      await db.user.create({
+        data: { email: testValues.email.toLowerCase().trim(), hashedPassword, role: "USER" },
+        select: { id: true, name: true, email: true, role: true },
+      })
       render(<AuthenticationForm />)
 
-      // Assert that the form is rendered with the default values
       await act(async () => {
         await user.type(screen.getByRole("textbox", { name: /email/i }), testValues.email)
         await user.type(screen.getByRole("password", { name: /password/i }), testValues.password)
         await user.click(screen.getByRole("button", { name: /login/i }))
       })
 
-      expect(onSubmitSpy).toHaveBeenCalledWith({ ...initialValues, ...testValues })
+      await waitFor(async () => {
+        expect(await screen.findByText(/Login success/i)).toBeInTheDocument()
+      })
+      await waitForElementToBeRemoved(() => screen.getByText(/Login success/i))
     })
 
-    // Toggles between login and register forms
     it("should toggle between login and register forms", async () => {
       const user = userEvent.setup()
       render(<AuthenticationForm />)
@@ -68,8 +61,7 @@ describe("AuthenticationForm", () => {
       })
     })
 
-    // Submits the form with invalid data and displays errors
-    it("should submit the form with invalid data and display errors", async () => {
+    it("should not submit the form with invalid data and display errors", async () => {
       const user = userEvent.setup()
       const testValues = {
         email: "twanda_ogleqldt",
@@ -87,7 +79,33 @@ describe("AuthenticationForm", () => {
 
       expect(screen.getByText(passwordErrors.min)).toBeInTheDocument()
       expect(screen.getByText(emailErrors.invalid)).toBeInTheDocument()
-      expect(onSubmitSpy).not.toHaveBeenCalled()
+    })
+
+    it("should show an error message when my credentials are wrong", async () => {
+      const user = userEvent.setup()
+      const testValues = {
+        email: "twanda_ogleqldt@cities.jtk",
+        password: "4KbQYB6ZQQjdc83t4deLBxJ",
+      }
+      const hashedPassword = await SecurePassword.hash(testValues.password.trim())
+      await db.user.create({
+        data: { email: testValues.email.toLowerCase().trim(), hashedPassword, role: "USER" },
+        select: { id: true, name: true, email: true, role: true },
+      })
+      render(<AuthenticationForm />)
+
+      // Assert that the form is rendered with the default values
+      await act(async () => {
+        await user.type(screen.getByRole("textbox", { name: /email/i }), testValues.email)
+        await user.type(
+          screen.getByRole("password", { name: /password/i }),
+          testValues.password + "x"
+        )
+        await user.click(screen.getByRole("button", { name: /login/i }))
+        await user.click(screen.getByRole("button", { name: /login/i }))
+      })
+
+      expect(await screen.findByRole("alert", { name: /error/i })).toBeInTheDocument()
     })
   })
 })

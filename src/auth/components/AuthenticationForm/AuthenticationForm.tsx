@@ -42,7 +42,7 @@ export const AuthenticationForm = (props: PaperProps) => {
         <form
           onSubmit={form.onSubmit((data: Values) => void onSubmit(data))}
           name={"login"}
-          title={"login"}
+          title={type}
         >
           <Stack align={"stretch"}>
             {error && (
