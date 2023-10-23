@@ -5,6 +5,7 @@ import { NextRouter } from "next/router"
 import { BlitzProvider, RouterContext } from "@blitzjs/next"
 import { QueryClient } from "@blitzjs/rpc"
 import { MantineProvider } from "@mantine/core"
+import { Notifications } from "@mantine/notifications"
 
 export * from "@testing-library/react"
 
@@ -40,6 +41,7 @@ export function render(
     wrapper = ({ children }: { children: React.ReactNode }) => (
       <BlitzProvider dehydratedState={dehydratedState} client={queryClient}>
         <MantineProvider>
+          <Notifications autoClose={250} />
           <RouterContext.Provider value={{ ...mockRouter, ...router }}>
             {children}
           </RouterContext.Provider>
