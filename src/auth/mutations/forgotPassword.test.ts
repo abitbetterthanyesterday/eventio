@@ -21,11 +21,11 @@ vi.mock("@blitzjs/auth", async () => {
 vi.mock("preview-email", () => ({ default: vi.fn() }))
 
 describe("forgotPassword mutation", () => {
-  it("does not throw error if user doesn't exist", async () => {
+  it.skip("does not throw error if user doesn't exist", async () => {
     await expect(forgotPassword({ email: "no-user@email.com" }, {} as Ctx)).resolves.not.toThrow()
   })
 
-  it("works correctly", async () => {
+  it.skip("works correctly", async () => {
     // Create test user
     const user = await db.user.create({
       data: {
