@@ -3,7 +3,7 @@ import login from "@/auth/mutations/login"
 import { Button, Group, Paper, Stack, Text, Title } from "@mantine/core"
 import { ShowOnlyForEnv } from "@/core/components/ShowOnlyForEnv"
 
-export const Index = () => {
+export const Devtoolbox = () => {
   const [$login] = useMutation(login)
 
   async function loginAs(role: "admin" | "user") {

@@ -20,14 +20,14 @@ import {
   useAuthenticationForm,
   Values,
 } from "@/auth/components/AuthenticationForm/useAuthenticationForm"
-import { Index } from "@/core/components/DevToolbox"
+import { Devtoolbox } from "@/core/components/DevToolbox"
 
 export const AuthenticationForm = (props: PaperProps) => {
   const { error, type, toggleType, form, onSubmit } = useAuthenticationForm()
 
   return (
     <Container pt={"10vh"} size={"xs"}>
-      <Index />
+      <Devtoolbox />
 
       <Paper radius="md" p="xl" withBorder {...props}>
         <Text size="lg" fw={500}>

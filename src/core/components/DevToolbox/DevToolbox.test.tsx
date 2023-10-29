@@ -1,10 +1,9 @@
-// Import the necessary dependencies
-import { screen, fireEvent, act } from "@testing-library/react"
-import { Index } from "./Index"
-import { useMutation } from "@blitzjs/rpc"
+import { screen, act } from "@testing-library/react"
+import { Devtoolbox } from "./Index"
 import { render } from "../../../../test/utils"
 import { cleanup } from "@testing-library/react-hooks"
 import { userEvent } from "@testing-library/user-event"
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss"
 
 const loginMock = vi.fn()
 vi.mock("@blitzjs/rpc", async () => {
@@ -17,26 +16,23 @@ vi.mock("@blitzjs/rpc", async () => {
 
 describe("Index", () => {
   it('should not render when process.env.NODE_ENV is not "development"', () => {
-    // Mock process.env.NODE_ENV
     const originalEnv = process.env.NODE_ENV
+    // @ts-ignore
     process.env.NODE_ENV = "production"
 
-    render(<Index />)
+    render(<Devtoolbox />)
     // Assert that the component is not rendered
     expect(screen.queryByText("Dev. toolbox")).not.toBeInTheDocument()
     expect(screen.queryByText("This is only visible in dev. environment")).not.toBeInTheDocument()
 
     cleanup()
-    // Mock process.env.NODE_ENV
+
     process.env.NODE_ENV = "development"
-    render(<Index />)
+    render(<Devtoolbox />)
 
     // Assert that the component is rendered
     expect(screen.queryByText("Dev. toolbox")).toBeInTheDocument()
     expect(screen.queryByText("This is only visible in dev. environment")).toBeInTheDocument()
-
-    // @ts-ignore
-    process.env.NODE_ENV = originalEnv
   })
 
   it('should call loginAs function with "admin" argument when "Login as admin" Button is clicked', async () => {
@@ -44,7 +40,7 @@ describe("Index", () => {
 
     // @ts-ignore
     process.env.NODE_ENV = "development"
-    render(<Index />)
+    render(<Devtoolbox />)
 
     // Click the "Login as admin" button
     await act(async () => {
@@ -63,7 +59,7 @@ describe("Index", () => {
 
     // @ts-ignore
     process.env.NODE_ENV = "development"
-    render(<Index />)
+    render(<Devtoolbox />)
 
     // Click the "Login as admin" button
     await act(async () => {
