@@ -20,12 +20,15 @@ import {
   useAuthenticationForm,
   Values,
 } from "@/auth/components/AuthenticationForm/useAuthenticationForm"
+import { DevToolbox } from "@/auth/components/AuthenticationForm/DevToolbox"
 
 export const AuthenticationForm = (props: PaperProps) => {
   const { error, type, toggleType, form, onSubmit } = useAuthenticationForm()
 
   return (
     <Container pt={"10vh"} size={"xs"}>
+      <DevToolbox />
+
       <Paper radius="md" p="xl" withBorder {...props}>
         <Text size="lg" fw={500}>
           Welcome to Paramarket, {type} with
