@@ -1,5 +1,4 @@
 import { FORM_ERROR } from "src/core/components/Form"
-import { ResetPassword } from "@/auth/schemas"
 import resetPassword from "@/auth/mutations/resetPassword"
 import { BlitzPage, Routes } from "@blitzjs/next"
 import { useRouter } from "next/router"
@@ -22,6 +21,7 @@ const ResetPasswordPage: BlitzPage = () => {
     try {
       assert(token, "token is required.")
       await resetPasswordMutation({ ...values, token })
+      return
     } catch (error: any) {
       if (error.name === "ResetPasswordError") {
         return {

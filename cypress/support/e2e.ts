@@ -21,7 +21,7 @@ import { RedirectError } from "blitz"
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-Cypress.on("uncaught:exception", (err, runnable) => {
+Cypress.on("uncaught:exception", (err, _runnable) => {
   /* Ignore RedirectError */
   if (err.name === RedirectError.name) {
     return false

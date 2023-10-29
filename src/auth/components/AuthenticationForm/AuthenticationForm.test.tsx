@@ -1,5 +1,5 @@
 import { act, waitFor, screen, waitForElementToBeRemoved } from "@testing-library/react"
-import { afterEach, Mocked, vi } from "vitest"
+import { afterEach } from "vitest"
 import { render } from "../../../../test/utils"
 import { AuthenticationForm } from "./AuthenticationForm"
 import { userEvent } from "@testing-library/user-event"

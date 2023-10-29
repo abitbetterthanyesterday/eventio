@@ -1,6 +1,5 @@
 import db from "../../../db"
 
 export default async function getBrands(_ = null) {
-  const brands = await db.gliderBrand.findMany({})
-  return brands
+  return await db.gliderBrand.findMany({})
 }

@@ -6,6 +6,7 @@ import { BlitzProvider, RouterContext } from "@blitzjs/next"
 import { QueryClient } from "@blitzjs/rpc"
 import { MantineProvider } from "@mantine/core"
 import { Notifications } from "@mantine/notifications"
+import { ReactNode } from "react"
 
 export * from "@testing-library/react"
 
@@ -34,11 +35,11 @@ const queryClient = new QueryClient()
 
 export function render(
   ui: RenderUI,
-  { wrapper, router, dehydratedState, ...options }: RenderOptions = {},
+  { wrapper, router, dehydratedState, ...options }: RenderOptions = {}
 ) {
   if (!wrapper) {
     // Add a default context wrapper if one isn't supplied from the test
-    wrapper = ({ children }: { children: React.ReactNode }) => (
+    wrapper = ({ children }: { children: ReactNode }) => (
       <BlitzProvider dehydratedState={dehydratedState} client={queryClient}>
         <MantineProvider>
           <Notifications autoClose={250} />
@@ -65,11 +66,11 @@ export function render(
 // --------------------------------------------------
 export function renderHook(
   hook: RenderHook,
-  { wrapper, router, dehydratedState, ...options }: RenderOptions = {},
+  { wrapper, router, dehydratedState, ...options }: RenderOptions = {}
 ) {
   if (!wrapper) {
     // Add a default context wrapper if one isn't supplied from the test
-    wrapper = ({ children }: { children: React.ReactNode }) => (
+    wrapper = ({ children }: { children: ReactNode }) => (
       <BlitzProvider dehydratedState={dehydratedState} client={queryClient}>
         <RouterContext.Provider value={{ ...mockRouter, ...router }}>
           {children}
