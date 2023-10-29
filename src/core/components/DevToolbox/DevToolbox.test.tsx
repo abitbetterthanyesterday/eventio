@@ -1,5 +1,5 @@
 import { screen, act } from "@testing-library/react"
-import { Devtoolbox } from "./Index"
+import { Devtoolbox } from "./index"
 import { render } from "../../../../test/utils"
 import { cleanup } from "@testing-library/react-hooks"
 import { userEvent } from "@testing-library/user-event"
@@ -14,7 +14,7 @@ vi.mock("@blitzjs/rpc", async () => {
   }
 })
 
-describe("Index", () => {
+describe("DevToolbox", () => {
   it('should not render when process.env.NODE_ENV is not "development"', () => {
     const originalEnv = process.env.NODE_ENV
     // @ts-ignore
