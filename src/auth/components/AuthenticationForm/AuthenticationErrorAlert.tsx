@@ -10,7 +10,7 @@ export const AuthenticationErrorAlert = (props: AuthenticationErrorAlertProps) =
         <Text>
           The password and email do not match. Please try again or
           {/* eslint-disable-next-line react/jsx-no-undef */}
-          <Anchor component={"button"} c={"red.5"} onClick={props.onClick}>
+          <Anchor component={"button"} c={"red.5"} onClick={props.onClick} pl={4}>
             reset your password
           </Anchor>
         </Text>

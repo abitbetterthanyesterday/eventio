@@ -20,14 +20,14 @@ import {
   useAuthenticationForm,
   Values,
 } from "@/auth/components/AuthenticationForm/useAuthenticationForm"
-import { DevToolbox } from "@/auth/components/AuthenticationForm/DevToolbox"
+import { Index } from "@/core/components/DevToolbox"
 
 export const AuthenticationForm = (props: PaperProps) => {
   const { error, type, toggleType, form, onSubmit } = useAuthenticationForm()
 
   return (
     <Container pt={"10vh"} size={"xs"}>
-      <DevToolbox />
+      <Index />
 
       <Paper radius="md" p="xl" withBorder {...props}>
         <Text size="lg" fw={500}>
@@ -49,7 +49,10 @@ export const AuthenticationForm = (props: PaperProps) => {
         >
           <Stack align={"stretch"}>
             {error && (
-              <AuthenticationErrorAlert error={error} onClick={() => alert("Not implement yet")} />
+              <AuthenticationErrorAlert
+                error={error}
+                onClick={() => alert("Not implemented yet")}
+              />
             )}
 
             {type === "register" && (

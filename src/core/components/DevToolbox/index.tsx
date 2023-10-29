@@ -3,7 +3,7 @@ import login from "@/auth/mutations/login"
 import { Button, Group, Paper, Stack, Text, Title } from "@mantine/core"
 import { ShowOnlyForEnv } from "@/core/components/ShowOnlyForEnv"
 
-export const DevToolbox = () => {
+export const Index = () => {
   const [$login] = useMutation(login)
 
   async function loginAs(role: "admin" | "user") {
@@ -14,8 +14,8 @@ export const DevToolbox = () => {
         password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD
         break
       case "user":
-        email = process.env.NEXT_PUBLIC_ADMIN_EMAIL
-        password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD
+        email = process.env.NEXT_PUBLIC_USER_EMAIL
+        password = process.env.NEXT_PUBLIC_USER_PASSWORD
         break
     }
     if (!email || !password) throw new Error(`Missing ${role} credentials in env. file`)
