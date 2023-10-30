@@ -40,7 +40,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
     try {
       const user = await $loginMutation(values)
       notifications.show({ title: "Login success", message: `Welcome back ${user.name}!` })
-    } catch (error: any) {
+    } catch (error) {
       setError(error)
       if (!(error instanceof AuthenticationError)) {
         Sentry.captureException(error)
@@ -51,7 +51,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
   const onSignup = async (values: Values) => {
     try {
       await $signupMutation(values)
-    } catch (error: any) {
+    } catch (error) {
       if (error.code === "P2002" && error.meta?.target?.includes("email")) {
         // This error comes from Prisma
         form.setErrors({ email: signUpErrors.emailAlreadyExists })
