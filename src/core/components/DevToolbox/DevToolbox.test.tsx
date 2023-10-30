@@ -3,9 +3,10 @@ import { Devtoolbox } from "./index"
 import { render } from "../../../../test/utils"
 import { cleanup } from "@testing-library/react-hooks"
 import { userEvent } from "@testing-library/user-event"
-import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss"
 
 const loginMock = vi.fn()
+
+vi.mock("../../hooks/useGetEnv")
 vi.mock("@blitzjs/rpc", async () => {
   const actual = await vi.importActual("@blitzjs/rpc")
   return {
@@ -15,19 +16,16 @@ vi.mock("@blitzjs/rpc", async () => {
 })
 
 describe("DevToolbox", () => {
-  it('should not render when process.env.NODE_ENV is not "development"', () => {
-    const originalEnv = process.env.NODE_ENV
-    // @ts-expect-error
-    process.env.NODE_ENV = "production"
-
+  it('should not render when process.env.NODE_ENV is not "development"', async () => {
+    const useCurrentEnv = await import("../../hooks/useGetEnv")
+    useCurrentEnv.useGetEnv = vi.fn(() => "production")
     render(<Devtoolbox />)
     // Assert that the component is not rendered
     expect(screen.queryByText("Dev. toolbox")).not.toBeInTheDocument()
     expect(screen.queryByText("This is only visible in dev. environment")).not.toBeInTheDocument()
 
     cleanup()
-
-    process.env.NODE_ENV = "development"
+    useCurrentEnv.useGetEnv = vi.fn(() => "development")
     render(<Devtoolbox />)
 
     // Assert that the component is rendered
@@ -37,9 +35,8 @@ describe("DevToolbox", () => {
 
   it('should call loginAs function with "admin" argument when "Login as admin" Button is clicked', async () => {
     const user = userEvent.setup()
-
-    // @ts-expect-error
-    process.env.NODE_ENV = "development"
+    const useCurrentEnv = await import("../../hooks/useGetEnv")
+    useCurrentEnv.useGetEnv = vi.fn(() => "development")
     render(<Devtoolbox />)
 
     // Click the "Login as admin" button
@@ -56,9 +53,8 @@ describe("DevToolbox", () => {
 
   it('should call loginAs function with "user" argument when "Login as user" Button is clicked', async () => {
     const user = userEvent.setup()
-
-    // @ts-expect-error
-    process.env.NODE_ENV = "development"
+    const useCurrentEnv = await import("../../hooks/useGetEnv")
+    useCurrentEnv.useGetEnv = vi.fn(() => "development")
     render(<Devtoolbox />)
 
     // Click the "Login as admin" button

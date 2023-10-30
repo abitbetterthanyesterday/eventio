@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { useGetEnv } from "@/core/hooks/useGetEnv"
 
 type Env = "development" | "production" | "test"
 
@@ -6,7 +7,9 @@ type ShowOnlyForEnvProps = {
   env: Env
   children: ReactNode
 }
+
 export const ShowOnlyForEnv = ({ env, children }: ShowOnlyForEnvProps) => {
-  if (process.env.NODE_ENV !== env) return null
+  const currentEnv = useGetEnv()
+  if (currentEnv !== env) return null
   return <>{children}</>
 }
