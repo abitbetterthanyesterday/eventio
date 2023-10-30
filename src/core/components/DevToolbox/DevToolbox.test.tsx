@@ -17,7 +17,7 @@ vi.mock("@blitzjs/rpc", async () => {
 describe("DevToolbox", () => {
   it('should not render when process.env.NODE_ENV is not "development"', () => {
     const originalEnv = process.env.NODE_ENV
-    // @ts-ignore
+    // @ts-expect-error
     process.env.NODE_ENV = "production"
 
     render(<Devtoolbox />)
@@ -38,7 +38,7 @@ describe("DevToolbox", () => {
   it('should call loginAs function with "admin" argument when "Login as admin" Button is clicked', async () => {
     const user = userEvent.setup()
 
-    // @ts-ignore
+    // @ts-expect-error
     process.env.NODE_ENV = "development"
     render(<Devtoolbox />)
 
@@ -57,7 +57,7 @@ describe("DevToolbox", () => {
   it('should call loginAs function with "user" argument when "Login as user" Button is clicked', async () => {
     const user = userEvent.setup()
 
-    // @ts-ignore
+    // @ts-expect-error
     process.env.NODE_ENV = "development"
     render(<Devtoolbox />)
 
