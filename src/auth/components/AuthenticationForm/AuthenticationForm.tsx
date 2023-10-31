@@ -24,7 +24,9 @@ import { Devtoolbox } from "@/core/components/DevToolbox"
 
 export const AuthenticationForm = (props: PaperProps) => {
   const { error, type, toggleType, form, onSubmit } = useAuthenticationForm()
+  const onChangeTerms = (event) => form.setFieldValue("terms", event.currentTarget.checked)
 
+  const onClickAlert = () => alert("Not implemented yet")
   return (
     <Container pt={"10vh"} size={"xs"}>
       <Devtoolbox />
@@ -48,12 +50,7 @@ export const AuthenticationForm = (props: PaperProps) => {
           title={type}
         >
           <Stack align={"stretch"}>
-            {error && (
-              <AuthenticationErrorAlert
-                error={error}
-                onClick={() => alert("Not implemented yet")}
-              />
-            )}
+            {error && <AuthenticationErrorAlert error={error} onClick={onClickAlert} />}
 
             {type === "register" && (
               <TextInput
@@ -85,19 +82,13 @@ export const AuthenticationForm = (props: PaperProps) => {
               <Checkbox
                 label="I accept terms and conditions"
                 checked={form.values.terms}
-                onChange={(event) => form.setFieldValue("terms", event.currentTarget.checked)}
+                onChange={onChangeTerms}
               />
             )}
           </Stack>
 
           <Group justify="space-between" mt="xl">
-            <Anchor
-              component="button"
-              type="button"
-              c="dimmed"
-              onClick={() => toggleType()}
-              size="xs"
-            >
+            <Anchor component="button" type="button" c="dimmed" onClick={toggleType} size="xs">
               {type === "register"
                 ? "Already have an account? Login"
                 : "Don't have an account? Register"}

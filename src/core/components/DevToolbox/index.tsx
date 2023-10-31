@@ -25,6 +25,14 @@ export const Devtoolbox = () => {
     })
   }
 
+  function loginAsAdmin() {
+    loginAs("admin")
+  }
+
+  function loginAsUser() {
+    loginAs("user")
+  }
+
   return (
     <ShowOnlyForEnv env={"development"}>
       <Paper style={{ border: "1px dashed orange" }} px={32} py={16} my={32}>
@@ -32,10 +40,10 @@ export const Devtoolbox = () => {
           <Title>Dev. toolbox</Title>
           <Text variant={"dimmed"}>This is only visible in dev. environment</Text>
           <Group>
-            <Button color="gray" onClick={() => loginAs("admin")}>
+            <Button color="gray" onClick={loginAsAdmin}>
               Login as admin
             </Button>
-            <Button color="gray" onClick={() => loginAs("user")}>
+            <Button color="gray" onClick={loginAsUser}>
               Login as user
             </Button>
           </Group>
