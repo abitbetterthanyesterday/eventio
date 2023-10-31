@@ -18,7 +18,7 @@ describe("AuthenticationForm", () => {
       // Assert that the form is rendered with the default values
       expect(screen.getByRole("textbox", { name: /email/i })).toHaveValue(initialValues.email)
       expect(screen.getByRole("password", { name: /password/i })).toHaveValue(
-        initialValues.password
+        initialValues.password,
       )
       // Assert that there are no error messages displayed
       expect(screen.queryByRole("alert")).toBeNull()
@@ -99,7 +99,7 @@ describe("AuthenticationForm", () => {
         await user.type(screen.getByRole("textbox", { name: /email/i }), testValues.email)
         await user.type(
           screen.getByRole("password", { name: /password/i }),
-          `${testValues.password}x`
+          `${testValues.password}x`,
         )
         await user.click(screen.getByRole("button", { name: /login/i }))
         await user.click(screen.getByRole("button", { name: /login/i }))
