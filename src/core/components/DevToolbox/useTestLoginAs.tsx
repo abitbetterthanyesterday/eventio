@@ -15,7 +15,10 @@ export function useTestLoginAs() {
         email = process.env.NEXT_PUBLIC_USER_EMAIL
         password = process.env.NEXT_PUBLIC_USER_PASSWORD
         break
+      default:
+        throw new Error(`Unknown role: ${role}`)
     }
+
     if (!email || !password) throw new Error(`Missing ${role} credentials in env. file`)
     await $login({
       email,

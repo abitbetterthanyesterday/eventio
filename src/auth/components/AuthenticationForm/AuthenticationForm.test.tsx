@@ -99,7 +99,7 @@ describe("AuthenticationForm", () => {
         await user.type(screen.getByRole("textbox", { name: /email/i }), testValues.email)
         await user.type(
           screen.getByRole("password", { name: /password/i }),
-          testValues.password + "x"
+          `${testValues.password}x`
         )
         await user.click(screen.getByRole("button", { name: /login/i }))
         await user.click(screen.getByRole("button", { name: /login/i }))
