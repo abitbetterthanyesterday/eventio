@@ -24,6 +24,7 @@ export type UseAuthenticationForm = {
   toggleType: () => void
   form: ReturnType<typeof useForm<Values>>
   onSubmit: (values: Values) => Promise<void>
+  onChangeTerms: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export function useAuthenticationForm(): UseAuthenticationForm {
@@ -67,5 +68,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
     }
   }
 
-  return { error, type, toggleType, form, onSubmit }
+  const onChangeTerms = (event) => form.setFieldValue("terms", event.currentTarget.checked)
+
+  return { error, type, toggleType, form, onSubmit, onChangeTerms }
 }
