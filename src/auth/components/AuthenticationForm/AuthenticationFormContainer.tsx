@@ -23,7 +23,8 @@ import {
 import { Devtoolbox } from "@/core/components/DevToolbox"
 import { notifications } from "@mantine/notifications"
 
-export const AuthenticationForm = (props: PaperProps) => {
+/** The AuthenticationFormContainer render the form, as well as the social buttons, title ect. */
+export const AuthenticationFormContainer = (props: PaperProps) => {
   return (
     <Container pt={"10vh"} size={"xs"}>
       <Devtoolbox />
@@ -43,6 +44,9 @@ export const AuthenticationForm = (props: PaperProps) => {
   )
 }
 
+/** The Form component contains the actual form.
+ * It handles the business logic.
+ * */
 const Form = () => {
   const { error, type, toggleType, form, onSubmit, onChangeTerms } = useAuthenticationForm()
 
@@ -108,6 +112,7 @@ const Form = () => {
   )
 }
 
+/** Allows to login using Google */
 const GoogleLoginButton = (): JSX.Element => {
   return (
     <Tooltip label={"Coming soon"}>
