@@ -2,6 +2,7 @@ import { Button, Group, Paper, Stack, Text, Title } from "@mantine/core"
 import { ShowOnlyForEnv } from "@/core/components/ShowOnlyForEnv"
 import { useTestLoginAs } from "@/core/components/DevToolbox/useTestLoginAs"
 
+/** The AvailableActions component the list of actions available in the dev. toolbox. */
 const AvailableActions = (): JSX.Element => {
   const { loginAsAdmin, loginAsUser } = useTestLoginAs()
 
@@ -17,6 +18,9 @@ const AvailableActions = (): JSX.Element => {
   )
 }
 
+/** The Devtoolbox is a component that is only visible in development environment.
+ * It allows to perform actions that are not available in production for testing purposes.
+ * For example, it allows you to login as admin in one click. */
 export const Devtoolbox = () => {
   return (
     <ShowOnlyForEnv env={"development"}>

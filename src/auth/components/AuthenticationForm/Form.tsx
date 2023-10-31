@@ -23,6 +23,8 @@ import { GoogleButton } from "@/auth/components/AuthenticationForm/SocialButton"
 export const Form = () => {
   const { error, type, toggleType, form, onSubmit, onChangeTerms } = useAuthenticationForm()
 
+  /** The handler for the alert component.
+   * Not implemented yet. */
   const onClickAlert = () => {
     notifications.show({
       color: "red",
