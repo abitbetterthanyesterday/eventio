@@ -27,7 +27,7 @@ export default resolver.pipe(resolver.zod(Login), async ({ email, password }, ct
   // This throws an error if credentials are invalid
   const user = await authenticateUser(email, password)
 
-  // @ts-expect-error
+  // @ts-expect-error For some reason, processEnv() is not typed
   const isTesting = processEnv().TEST
 
   if (!isTesting) {
