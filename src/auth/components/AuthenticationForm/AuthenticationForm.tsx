@@ -55,11 +55,7 @@ const Form = () => {
   }
 
   return (
-    <form
-      onSubmit={form.onSubmit((data: Values) => void onSubmit(data))}
-      name={"login"}
-      title={type}
-    >
+    <form onSubmit={form.onSubmit((data: Values) => onSubmit(data))} name={"login"} title={type}>
       <Stack align={"stretch"}>
         {error && <AuthenticationErrorAlert error={error} onClick={onClickAlert} />}
 
