@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom"
-import { vi, beforeAll, beforeEach, afterAll, afterEach } from "vitest"
+import { vi } from "vitest"
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -14,14 +14,3 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: vi.fn(),
   })),
 })
-
-beforeAll(async () => {})
-
-beforeEach(async () => {})
-
-// Reset any request handlers that we may add during the tests,
-// so they don't affect other tests.
-afterEach(() => {})
-
-// Clean up after the tests are finished.
-afterAll(() => {})
