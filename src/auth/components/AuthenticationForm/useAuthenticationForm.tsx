@@ -32,7 +32,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
   const [$loginMutation] = useMutation(login)
   const [$signupMutation] = useMutation(signup)
   const form = useForm<Values>({
-    initialValues: initialValues,
+    initialValues,
     validate: zodResolver(Signup),
   })
 
