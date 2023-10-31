@@ -21,12 +21,20 @@ import {
   Values,
 } from "@/auth/components/AuthenticationForm/useAuthenticationForm"
 import { Devtoolbox } from "@/core/components/DevToolbox"
+import { notifications } from "@mantine/notifications"
 
 export const AuthenticationForm = (props: PaperProps) => {
   const { error, type, toggleType, form, onSubmit } = useAuthenticationForm()
   const onChangeTerms = (event) => form.setFieldValue("terms", event.currentTarget.checked)
 
-  const onClickAlert = () => alert("Not implemented yet")
+  const onClickAlert = () => {
+    notifications.show({
+      color: "red",
+      title: "Error",
+      message: "Not implemented yet",
+    })
+  }
+
   return (
     <Container pt={"10vh"} size={"xs"}>
       <Devtoolbox />
