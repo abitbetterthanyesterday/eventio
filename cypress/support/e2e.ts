@@ -28,6 +28,7 @@ Cypress.on("uncaught:exception", (err, _runnable) => {
   }
 })
 
+/** A helper function to login programmatically */
 const login = ({ email, password }: z.infer<typeof Login>) => {
   return cy.request("POST", `/api/rpc/login`, {
     params: {
