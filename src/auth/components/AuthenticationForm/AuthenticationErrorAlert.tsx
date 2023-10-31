@@ -3,6 +3,9 @@ import { AuthenticationError } from "blitz"
 import { Alert, Anchor, Text } from "@mantine/core"
 
 type AuthenticationErrorAlertProps = { error: Error; onClick: () => void }
+
+/** The AuthenticationErrorAlert component is used to display an error message.
+ * For example, when the user tries to login with an invalid email/password combination. */
 export const AuthenticationErrorAlert = (props: AuthenticationErrorAlertProps) => {
   return (
     <Alert variant="light" color="red" radius="lg" title="Error" icon={<IconInfoCircle />}>
