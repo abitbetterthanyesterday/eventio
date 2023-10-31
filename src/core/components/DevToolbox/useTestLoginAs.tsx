@@ -1,10 +1,14 @@
 import { useMutation } from "@blitzjs/rpc"
 import login from "@/auth/mutations/login"
-import { process } from "std-env"
 
+/**
+ * This hook is used to login as a user or admin in development.
+ * It uses the credentials from the .env.local file.
+ */
 export function useTestLoginAs() {
   const [$login] = useMutation(login)
 
+  /** Login as a user or admin */
   async function loginAs(role: "admin" | "user") {
     let email: string, password: string
     switch (role) {
