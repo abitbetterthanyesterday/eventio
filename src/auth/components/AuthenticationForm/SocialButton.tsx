@@ -1,10 +1,12 @@
 import { Button, ButtonProps } from "@mantine/core"
 import { ComponentPropsWithoutRef } from "react"
 
+/** A button that uses the Google logo as its icon. */
 export function GoogleButton(props: ButtonProps & ComponentPropsWithoutRef<"button">) {
   return <Button leftSection={<GoogleIcon />} variant="default" {...props} />
 }
 
+/** The Google logo. */
 export function GoogleIcon(props: ComponentPropsWithoutRef<"svg">) {
   return (
     <svg
