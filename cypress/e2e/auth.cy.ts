@@ -16,7 +16,7 @@ describe("Sign up and login", () => {
     cy.findByRole("form", { name: /login/i }).should("exist")
     cy.findByRole("textbox", { name: /email/i }).type(testValues.email, { force: true })
     cy.findByRole("password").type(testValues.password)
-    cy.findByRole("button", { name: /login/i }).click()
+    cy.findByRole("button", { name: /^login$/i }).click()
 
     cy.findByRole("alert", { name: /error/i }).contains("The password and email do not match")
 
@@ -37,7 +37,7 @@ describe("Sign up and login", () => {
     cy.findByRole("form", { name: /login/i }).should("exist")
     cy.findByRole("textbox", { name: /email/i }).type(testValues.email, { force: true })
     cy.findByRole("password").type(testValues.password)
-    cy.findByRole("button", { name: /login/i }).click()
+    cy.findByRole("button", { name: /^login$/i }).click()
     const welcomeNotificationRegExp = new RegExp(`Welcome.*${testValues.name}`, "i")
     cy.findByText(welcomeNotificationRegExp).should("exist")
 
@@ -55,7 +55,7 @@ describe("Sign up and login", () => {
     })
     cy.findByRole("password").type("U2QWY7ayu9K")
 
-    cy.findByRole("button", { name: /login/i }).click()
+    cy.findByRole("button", { name: /^login$/i }).click()
 
     cy.wait("@loginNetworkFailure")
 
