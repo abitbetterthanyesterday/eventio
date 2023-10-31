@@ -8,6 +8,9 @@ type ShowOnlyForEnvProps = {
   children: ReactNode
 }
 
+/**
+ * Show children only if the current environment matches the env prop
+ */
 export const ShowOnlyForEnv = ({ env, children }: ShowOnlyForEnvProps) => {
   const currentEnv = useGetEnv()
   if (currentEnv !== env) return null
