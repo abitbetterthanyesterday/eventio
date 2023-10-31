@@ -11,5 +11,5 @@ type ShowOnlyForEnvProps = {
 export const ShowOnlyForEnv = ({ env, children }: ShowOnlyForEnvProps) => {
   const currentEnv = useGetEnv()
   if (currentEnv !== env) return null
-  return children
+  return <>{children}</>
 }
