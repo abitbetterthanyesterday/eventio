@@ -27,6 +27,10 @@ export type UseAuthenticationForm = {
   onChangeTerms: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
+/**
+ * This is a custom hook that we created to abstract away the logic of the AuthenticationForm component.
+ * It handles the form state, validation, and submission for both login and signup.
+ */
 export function useAuthenticationForm(): UseAuthenticationForm {
   const [error, setError] = useState<Error | null>(null)
   const [type, toggleType] = useToggle(["login", "register"] as const)
@@ -37,6 +41,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
     validate: zodResolver(Signup),
   })
 
+  /** Login user or show error */
   async function onLogin(values: Values) {
     try {
       const user = await $loginMutation(values)
@@ -49,6 +54,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
     }
   }
 
+  /** Signup user or show error */
   const onSignup = async (values: Values) => {
     try {
       await $signupMutation(values)
@@ -60,6 +66,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
     }
   }
 
+  /** Handle form submission */
   async function onSubmit(values: Values) {
     if (type === "login") {
       await onLogin(values)
@@ -68,6 +75,7 @@ export function useAuthenticationForm(): UseAuthenticationForm {
     }
   }
 
+  /** Handle terms checkbox change */
   const onChangeTerms = (event) => form.setFieldValue("terms", event.currentTarget.checked)
 
   return { error, type, toggleType, form, onSubmit, onChangeTerms }
