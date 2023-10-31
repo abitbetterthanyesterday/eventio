@@ -9,12 +9,10 @@ const Home: BlitzPage = () => {
     <Layout title="Home">
       <Center h={"100%"}>
         <Stack h={"full"} w={"full"} align={"center"} justify={"center"}>
-          <Stack>
-            <UserInfo />
-            <Button component={Link} variant={"light"} href={Routes.NewGliderPage()}>
-              Sell
-            </Button>
-          </Stack>
+          <UserInfo />
+          <Button component={Link} variant={"light"} href={Routes.NewGliderPage()}>
+            Sell
+          </Button>
         </Stack>
       </Center>
     </Layout>
