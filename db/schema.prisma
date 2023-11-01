@@ -81,9 +81,8 @@ model Session {
   antiCSRFToken      String?
   publicData         String?
   privateData        String?
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
+  user               User?     @relation(fields: [userId], references: [id])
+  userId             Int?
 }
 
 model Token {

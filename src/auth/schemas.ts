@@ -1,19 +1,32 @@
 import { z } from "zod"
 
+export const emailErrors = {
+  invalid: "Please enter a valid email",
+}
+
+export const signUpErrors = {
+  emailAlreadyExists: "This email is already being used",
+}
 export const email = z
   .string()
-  .email()
+  .email({ message: emailErrors.invalid })
   .transform((str) => str.toLowerCase().trim())
 
+export const passwordErrors = {
+  min: "Password be at least 10 characters",
+  max: "Password must be less than 100 characters",
+}
 export const password = z
   .string()
-  .min(10)
-  .max(100)
+  .min(10, { message: passwordErrors.min })
+  .max(100, { message: passwordErrors.max })
   .transform((str) => str.trim())
 
 export const Signup = z.object({
   email,
   password,
+  name: z.string(),
+  terms: z.boolean(),
 })
 
 export const Login = z.object({

@@ -1,5 +1,4 @@
-import { NativeSelect, NumberInput, rem, TextInput } from "@mantine/core"
-import { Form } from "@mantine/form"
+import { NativeSelect, NumberInput, rem } from "@mantine/core"
 
 const data = [
   { value: "eur", label: "🇪🇺 EUR" },

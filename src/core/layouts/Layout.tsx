@@ -1,7 +1,7 @@
 import Head from "next/head"
 import React, { Suspense } from "react"
 import { BlitzLayout, Routes } from "@blitzjs/next"
-import { Anchor, AppShell, Burger, Button, ButtonGroup, Center, Flex, Group } from "@mantine/core"
+import { Anchor, AppShell, Burger, Button, Center, Flex, Group } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import Link from "next/link"
 import { useMutation } from "@blitzjs/rpc"
@@ -23,7 +23,7 @@ const Layout: BlitzLayout<Props> = ({ title, children }) => {
   return (
     <>
       <Head>
-        <title>{title || "eventio"}</title>
+        <title>{title ?? "eventio"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

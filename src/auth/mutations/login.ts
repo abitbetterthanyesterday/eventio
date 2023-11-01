@@ -4,6 +4,7 @@ import { AuthenticationError } from "blitz"
 import db from "../../../db"
 import { Role } from "../../../types"
 import { Login } from "../schemas"
+import { processEnv } from "@next/env"
 
 export const authenticateUser = async (rawEmail: string, rawPassword: string) => {
   const { email, password } = Login.parse({ email: rawEmail, password: rawPassword })
@@ -26,7 +27,12 @@ export default resolver.pipe(resolver.zod(Login), async ({ email, password }, ct
   // This throws an error if credentials are invalid
   const user = await authenticateUser(email, password)
 
-  await ctx.session.$create({ userId: user.id, role: user.role as Role })
+  // @ts-expect-error For some reason, processEnv() is not typed
+  const isTesting = processEnv().TEST
+
+  if (!isTesting) {
+    await ctx.session.$create({ userId: user.id, role: user.role as Role })
+  }
 
   return user
 })

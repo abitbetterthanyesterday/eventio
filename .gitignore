@@ -42,6 +42,7 @@ pids
 *.lcov
 .nyc_output
 lib-cov
+coverage
 
 # Caches
 *.tsbuildinfo
@@ -57,12 +58,6 @@ lib-cov
 
 # Webstorm
 .idea
-
-# Webstorm
-.idea
-
-# Sentry Auth Token
-.sentryclirc
 
 # Sentry Auth Token
 .sentryclirc

@@ -5,7 +5,7 @@ export const UserInfo = () => {
   const currentUser = useCurrentUser()
 
   if (!currentUser) {
-    throw Error("No user")
+    return null
   }
 
   return (
